@@ -106,7 +106,12 @@
                                 </tbody></table>
                             </div>
                         </div>
+                        <?php if(isset($_SESSION['iduser']) && ($_SESSION['iduser']) != "") { ?>
                         <a href="index.php?page=dathang" class="btn flosun-button primary-btn rounded-0 black-btn w-100"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tiến hành đặt hàng</font></font></a>
+                        <?php } else {?>
+                            <a href="index.php?page=giohang" class="btn flosun-button primary-btn rounded-0 black-btn w-100"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tiến hành đặt hàng</font></font></a>
+                            <p class="text-danger ">Vui lòng đăng nhập để đặt hàng</p>    
+                        <?php } ?>
                     </div>
                 </div>
             </div>

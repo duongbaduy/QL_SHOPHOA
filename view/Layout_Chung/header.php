@@ -37,7 +37,7 @@
     $soLuongSanPhamTrongGioHang = 0;
     if(isset($_SESSION['giohang'])) {
         foreach($_SESSION['giohang'] as $item) {
-            $soLuongSanPhamTrongGioHang += $item[3]; // Số lượng sản phẩm là phần tử thứ 4 trong mỗi mảng sản phẩm trong giỏ hàng
+            $soLuongSanPhamTrongGioHang ++; // Số lượng sản phẩm là phần tử thứ 4 trong mỗi mảng sản phẩm trong giỏ hàng
         }
     }
 ?>
@@ -75,29 +75,42 @@
                                         <li><a href="index.php?page=sanpham&id=<?php echo $l['MaLoai']; ?>"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $l['TenLoai'] ?></font></font></a></li>
                                         <?php } ?>
                                     </ul>
-                                </li>
+                                </li>               
                                 <li>
-                                    <a href="#">
-                                        <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Trang</font></font></span>
-                                        <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-submenu dropdown-hover">
-                                        <li><a href="index.php?page=lienhe"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Liên hệ</font></font></a></li>
-                                        <li><a href="index.php?page=taikhoancuatoi"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tài khoản của tôi</font></font></a></li>
-                                        <li><a href="index.php?page=dangnhap"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng nhập</font></font></a></li>
-                                        <li><a href="index.php?page=dangky"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng ký</font></font></a></li>
-                                    </ul>
-                                </li>
+                                        <a href="index.php?page=vechungtoi">
+                                            <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Về chúng tôi</font></font></span>
+                                        </a>
+                                    </li>
+                                <?php if(isset($_SESSION['userName']) && ($_SESSION['userName'])!=""){ ?>
+                                    <li>
+                                        <a href="index.php?page=userinfo">
+                                            <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo  $_SESSION['userName']?></font></font></span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        
+                                        <ul class="dropdown-submenu dropdown-hover">
+                                            <li><a href="index.php?page=lienhe"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Liên hệ</font></font></a></li>
+                                            <li><a href="index.php?page=taikhoancuatoi"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tài khoản của tôi</font></font></a></li>                                        
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="index.php?page=logout">
+                                            <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng xuất</font></font></span>
+                                        </a>
+                                    </li>
+                                <?php } else {?>
                                 <li>
-                                    <a href="index.php?page=vechungtoi">
-                                        <span class="menu-text"><index.php?page=vechungtoifont style="vertical-align: inherit;"><font style="vertical-align: inherit;">Về chúng tôi</font></font></span>
+                                    <a href="index.php?page=login">
+                                        <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng nhập</font></font></span>
                                     </a>
                                 </li>
+
                                 <li>
-                                    <a href="index.php?page=lienhe">
-                                        <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Liên hệ chúng tôi</font></font></span>
+                                    <a href="index.php?page=dangky">
+                                        <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng ký</font></font></span>
                                     </a>
                                 </li>
+                                <?php }?>
                             </ul>
                         </nav>
                     </div>

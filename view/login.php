@@ -26,12 +26,12 @@
                             <h2 class="title-4 mb-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng nhập</font></font></h2>
                             <p class="desc-content"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Vui lòng đăng nhập bằng cách sử dụng chi tiết tài khoản dưới đây.</font></font></p>
                         </div>
-                        <form action="#" method="post">
+                        <form action="index.php?page=login" method="post">
                             <div class="single-input-item mb-3">
-                                <input type="email" placeholder="Thư điện tử hoặc tên người dùng">
+                                <input name="username" type="text" placeholder="Thư điện tử hoặc tên người dùng">
                             </div>
                             <div class="single-input-item mb-3">
-                                <input type="password" placeholder="Nhập mật khẩu của bạn">
+                                <input name="password" type="password" placeholder="Nhập mật khẩu của bạn">
                             </div>
                             <div class="single-input-item mb-3">
                                 <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="single-input-item mb-3">
-                                <button class="btn flosun-button secondary-btn theme-color rounded-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng nhập</font></font></button>
+                                <input type="submit" name="login" class="btn flosun-button secondary-btn theme-color rounded-0" value="Đăng nhập">
                             </div>
                             <div class="single-input-item">
                                 <a href="register.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tạo tài khoản</font></font></a>

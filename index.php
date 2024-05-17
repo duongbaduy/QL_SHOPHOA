@@ -3,11 +3,13 @@ session_start();
 if (!isset($_SESSION['giohang'])) $_SESSION['giohang'] = [];
 ob_start();
 include "model/KetNoi.php";
+include "model/user.php";
 include "model/loai.php";
 $loai = getAll_Loai();
 include "view/Layout_Chung/header.php";
 include "model/sanpham.php";
 include "model/HinhAnh.php";
+include "model/HoaDon.php";
 $SP = getAll_SanPham();
 if (isset($_GET['page']) && $_GET['page'] != "") {
     switch ($_GET['page']) {
@@ -111,7 +113,33 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                     break;
                 }
         case 'dathang';
-        include "view/checkout.php";
+            if(isset($_SESSION['role']))
+            {
+                $err = "";
+                if (isset($_POST['btndathang'])) {
+                    $hoten = $_POST['hoten'];
+                    foreach ($_SESSION['giohang'] as $item) {
+                        $tt = $item[3] * $item[4];
+                        $tong += $tt;
+                    }
+
+                    if ($hoten == "" ) {
+                        $err = "Vui lòng nhập đầy đủ thông tin";
+                    } else {
+                        InsertHoaDon($_SESSION['iduser'], $hoten, '1', '2','1', '1', $tong);
+                        // Clear the cart after successful order
+                        unset($_SESSION['giohang']);
+                        header("Location: index.php?page=DatHangThanhCong");
+                        exit();
+                    }
+                }
+                include "view/checkout.php";
+            }
+            else
+            {
+                header('Location: index.php');
+            }
+            
             break;
         case 'viewcart':
             include "view/cart.php";
@@ -122,20 +150,59 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
         case 'lienhe':
             include "view/contact-us.php";
             break;
-        case 'dangnhap':
+        case 'login':
+            if(isset($_POST['login']) && ($_POST['login']))
+            {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $kq = getuserinfo($username,$password);
+                $role = $kq[0]['role'];
+                if($role == 1)
+                {
+                    $_SESSION['role'] = $role;
+                    header('Location: admin/index.php');
+                } 
+                else
+                {
+                    $_SESSION['role'] = $role;
+                    $_SESSION['iduser'] = $kq[0]['id'];
+                    $_SESSION['userName'] = $kq[0]['userName'];
+                    header('Location: index.php');
+                }
+            }
             include "view/login.php";
+            break;
+        case 'logout':
+            unset($_SESSION['role']);
+            unset($_SESSION['iduser']);
+            unset($_SESSION['userName']);
+            header('Location: index.php');
             break;
         case 'dangky':
             include "view/register.php";
             break;
         case 'taikhoancuatoi':
-            include "view/my-account.php";
+            if(isset($_SESSION['role']))
+            {
+                include "view/my-account.php";
+            }
+            else
+            {
+                header('Location: index.php');
+            }
             break;
         case 'giohang':
             include "view/cart.php";
             break;
-        case 'xacnhanthanhtoan':
-            include "view/checkout.php";
+        case 'DatHangThanhCong':
+            if(isset($_SESSION['role']))
+            {
+                include "DatHangThanhCong.php";
+            }
+            else
+            {
+                include "view/login.php";
+            }
             break;
         default:
             break;
