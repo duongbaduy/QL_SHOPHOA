@@ -179,7 +179,109 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             header('Location: index.php');
             break;
         case 'dangky':
-            include "view/register.php";
+            if (!isset($_POST['dangky'])) {
+                include "view/register.php";
+            } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $errors = [];
+            
+                // Lấy dữ liệu từ form
+                $f_name = $_POST['f_name'];
+                $l_name = $_POST['l_name'];
+                $diachi = $_POST['diachi'];
+                $tinh = $_POST['hidden_tinh']; // Lấy tên tỉnh từ trường ẩn
+                $quan = $_POST['hidden_quan']; // Lấy tên quận huyện từ trường ẩn
+                $phuong = $_POST['hidden_phuong']; // Lấy giá trị của phường xã
+                $sdt = $_POST['sdt'];
+                $email = $_POST['email'];
+                $userName = $_POST['userName'];
+                $password = $_POST['password'];
+                $confirm_pwd = $_POST['confirm_pwd'];
+            
+                // Kết nối cơ sở dữ liệu
+                $conn = ketnoi();
+            
+                // Kiểm tra f_name và l_name không được chứa ký tự số
+                if (preg_match('/[0-9]/', $f_name)) {
+                    $errors['f_name'] = "Họ không được chứa ký tự số.";
+                }
+                if (preg_match('/[0-9]/', $l_name)) {
+                    $errors['l_name'] = "Tên không được chứa ký tự số.";
+                }
+            
+                // Kiểm tra sdt chỉ chứa số và có độ dài đúng 10 số
+                if (!preg_match('/^[0-9]{10}$/', $sdt)) {
+                    $errors['sdt'] = "Số điện thoại phải đúng 10 số.";
+                } else {
+                    // Kiểm tra định dạng số điện thoại Vinaphone, Mobifone, Viettel
+                    $valid_sdt_prefixes = [
+                        '086', '096', '097', '098', // Viettel
+                        '089', '090', '093', // Mobifone
+                        '088', '091', '094' // Vinaphone
+                    ];
+                    $prefix = substr($sdt, 0, 3);
+                    if (!in_array($prefix, $valid_sdt_prefixes)) {
+                        $errors['sdt'] = "Số điện thoại không đúng định dạng.";
+                    }
+                }
+            
+                // Kiểm tra định dạng email
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $errors['email'] = "Email không hợp lệ.";
+                } else {
+                    // Kiểm tra email có trùng lặp không
+                    $sql = "SELECT email FROM users WHERE email = :email";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute([':email' => $email]);
+                    if ($stmt->rowCount() > 0) {
+                        $errors['email'] = "Email đã tồn tại.";
+                    }
+                }
+            
+                // Kiểm tra tên đăng nhập có trùng lặp không
+                $sql = "SELECT userName FROM users WHERE userName = :userName";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([':userName' => $userName]);
+                if ($stmt->rowCount() > 0) {
+                    $errors['userName'] = "Tên đăng nhập đã tồn tại.";
+                }
+            
+                // Kiểm tra password
+                if (strlen($password) < 8 || !preg_match('/\d/', $password)) {
+                    $errors['password'] = "Mật khẩu phải ít nhất 8 ký tự và có ít nhất một số.";
+                }
+            
+                // Kiểm tra confirm password
+                if ($password !== $confirm_pwd) {
+                    $errors['confirm_pwd'] = "Mật khẩu xác nhận không khớp.";
+                } else {
+                    // Hash mật khẩu
+                    $password_hashed = password_hash($password, PASSWORD_BCRYPT);
+                    
+                }
+                
+                // Nếu không có lỗi, thực hiện câu lệnh INSERT
+                if (empty($errors)) {
+
+                    $sql = "INSERT INTO users (f_name, l_name, diachi, tinh, quan, phuong, sdt, email, userName, password, session, role) 
+                            VALUES (:f_name, :l_name, :diachi, :tinh, :quan, :phuong, :sdt, :email, :userName, :password, '', 0)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute([
+                        ':f_name' => $f_name,
+                        ':l_name' => $l_name,
+                        ':diachi' => $diachi,
+                        ':tinh' => $tinh,
+                        ':quan' => $quan,
+                        ':phuong' => $phuong,
+                        ':sdt' => $sdt,
+                        ':email' => $email,
+                        ':userName' => $userName,
+                        ':password' => $password_hashed
+                    ]);
+                    include "view/login.php";
+                } else {
+                    include "view/register.php";
+                }
+            }
             break;
         case 'taikhoancuatoi':
             if(isset($_SESSION['role']))

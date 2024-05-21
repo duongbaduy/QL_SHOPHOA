@@ -57,7 +57,7 @@ $tong = 0;
                                 </div>
                             </div>
 
-                            <div class="col-md-12 col-custom">
+                            <!-- <div class="col-md-12 col-custom">
                                 <div class="checkout-form-list">
                                     <label>
                                         <font style="vertical-align: inherit;">
@@ -70,8 +70,21 @@ $tong = 0;
                                     </label>
                                     <input placeholder="Địa chỉ đường phố" name="diachi" type="text">
                                 </div>
-                            </div>
+                            </div> -->
+                            <label for="province">Province:</label>
+                            <select id="province" name="province" required>
+                                <option value="">Select Province</option>
+                            </select><br><br>
 
+                            <label for="district">District:</label>
+                            <select id="district" name="district" required>
+                                <option value="">Select District</option>
+                            </select><br><br>
+
+                            <label for="ward">Ward:</label>
+                            <select id="ward" name="ward" required>
+                                <option value="">Select Ward</option>
+                            </select><br><br>
                             <div class="col-md-6 col-custom">
                                 <div class="checkout-form-list">
                                     <label>
@@ -426,5 +439,9 @@ $tong = 0;
                 </div>
             </div>
         </form>
+
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./index.js"></script>

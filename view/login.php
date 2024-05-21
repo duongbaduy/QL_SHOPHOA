@@ -48,7 +48,7 @@
                                 <input type="submit" name="login" class="btn flosun-button secondary-btn theme-color rounded-0" value="Đăng nhập">
                             </div>
                             <div class="single-input-item">
-                                <a href="register.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tạo tài khoản</font></font></a>
+                                <a href="index.php?page=dangky"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tạo tài khoản</font></font></a>
                             </div>
                         </form>
                     </div>
