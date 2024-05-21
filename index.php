@@ -8,8 +8,12 @@ include "model/loai.php";
 $loai = getAll_Loai();
 include "view/Layout_Chung/header.php";
 include "model/sanpham.php";
+include "model/SoLuong.php";
+include "model/MauSac.php";
+$mausac = get_AllMausac();
 include "model/HinhAnh.php";
 include "model/HoaDon.php";
+$tong=0;
 $SP = getAll_SanPham();
 if (isset($_GET['page']) && $_GET['page'] != "") {
     switch ($_GET['page']) {
@@ -26,6 +30,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             }
             $soluongsp = 6;
             $sort_option = isset($_GET['sort']) ? $_GET['sort'] : '1'; // Mặc định sắp xếp theo tên
+            
             switch ($sort_option) {
                 case '1':
                     $kq = sortSanPhamByName($keyword, $current_page, $soluongsp);
@@ -37,6 +42,10 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             }
             $total_rows = countRowsInTable();
             $total_pages = ceil($total_rows / $soluongsp);
+            if (isset($_GET['mamau'])) {
+                $id = $_GET['mamau'];
+                $kq = getSPTheoMau($id);
+            }
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
                 $kq = getSPtheoLoai($id);
@@ -48,7 +57,8 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
         case 'chitietsanpham':
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
-                $sanpham = get_SanPham($id);
+                $mausac = get_MauSac($id);
+                $sanpham = get_SanPham($id);         
                 include "view/product-details.php";
             }
             break;
@@ -112,27 +122,86 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                     }
                     break;
                 }
-        case 'dathang';
-            if(isset($_SESSION['role']))
-            {
-                $err = "";
+        case 'dathang';  
+            // Kiểm tra số lượng sản phẩm
+            foreach ($_SESSION['giohang'] as $item) {
+                $product_info = get_SanPham($item[0]);
+                $stock = $product_info[0]['SoLuong'];
+                if ($item[3] > $stock) {
+                    // Số lượng sản phẩm vượt quá số lượng trong kho
+                    header("Location: index.php?page=viewcart");
+                    exit();
+                }
+            }
+   
+            if(isset($_SESSION['role']) || isset($_COOKIE['id']))
+            {            
+                $errHT ="";
+                $errDC ="";
+                $errEmail ="";
+                $errSDT ="";
                 if (isset($_POST['btndathang'])) {
-                    $hoten = $_POST['hoten'];
-                    foreach ($_SESSION['giohang'] as $item) {
-                        $tt = $item[3] * $item[4];
-                        $tong += $tt;
+                    if (empty($_SESSION['giohang'])) {
+                        // Nếu giỏ hàng trống, quay về trang chính
+                        header("Location: index.php");
+                        exit(); // Kết thúc script để ngăn mã tiếp tục chạy
                     }
-
-                    if ($hoten == "" ) {
-                        $err = "Vui lòng nhập đầy đủ thông tin";
-                    } else {
-                        InsertHoaDon($_SESSION['iduser'], $hoten, '1', '2','1', '1', $tong);
-                        // Clear the cart after successful order
+                    $hoten = $_POST['hoten'];
+                    $diachi = $_POST['diachi'];
+                    $email = $_POST['email'];
+                    $sdt = $_POST['sdt'];
+                    $ghichu = $_POST['ghichu'];
+                    $ngaydat = date("Y-m-d");
+                    if($hoten == "")
+                    {
+                        $errHT = "Vui lòng cập nhật họ tên <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a>";
+                    }
+                    else if($diachi == "")
+                    {
+                        $errDC = "Vui lòng nhập địa chỉ <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a>";
+                    }
+                    else if($email == "")
+                    {
+                        $errEmail = "Vui lòng cập nhật email <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a> ";
+                    }
+                    else if($sdt == "")
+                    {
+                        $errSDT = "Vui lòng cập nhật số điện thoại <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a>";
+                    }
+                    else
+                    {
+                        foreach ($_SESSION['giohang'] as $item) {
+                            $tt = $item[3] * $item[4];
+                            $tong += $tt;
+                        }
+                        // Gọi hàm InsertHoaDon() và truyền thông tin vào
+                        if (isset($_SESSION['role'])) {
+                            $lastID = InsertHoaDon($_SESSION['iduser'], $diachi, $ngaydat, $ghichu, $tong);
+                         
+                            foreach ($_SESSION['giohang'] as $item) 
+                            {
+                                InserCTHoaDon($lastID, $item[0], $item[3],$item[4]);
+                            }          
+                        }
+                        if (isset($_COOKIE['id'])) {
+                            $lastID = InsertHoaDon($_COOKIE['id'], $diachi, $ngaydat, $ghichu, $tong);
+                            
+                            foreach ($_SESSION['giohang'] as $item) 
+                            {
+                                InserCTHoaDon($lastID, $item[0], $item[3],$item[4]);
+                            }
+                        }
+                        // Xóa giỏ hàng sau khi đặt hàng thành công
                         unset($_SESSION['giohang']);
                         header("Location: index.php?page=DatHangThanhCong");
                         exit();
-                    }
+                    }    
                 }
+                
+                if(isset($_COOKIE['id']))
+                    $infor = getInfor($_COOKIE['id']);
+                if(isset($_SESSION['role']))
+                    $infor = getInfor($_SESSION['iduser']);
                 include "view/checkout.php";
             }
             else
@@ -141,7 +210,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             }
             
             break;
-        case 'viewcart':
+        case 'viewcart':      
             include "view/cart.php";
             break;
         case 'vechungtoi':
@@ -151,23 +220,33 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             include "view/contact-us.php";
             break;
         case 'login':
-            if(isset($_POST['login']) && ($_POST['login']))
+            $errDN = "";
+            if((isset($_POST['login']) ||isset($_COOKIE['id']) && $_POST['login]']))
             {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $kq = getuserinfo($username,$password);
-                $role = $kq[0]['role'];
-                if($role == 1)
+                $KTDN = KTDN($username, $password);
+                if($KTDN)
                 {
-                    $_SESSION['role'] = $role;
-                    header('Location: admin/index.php');
-                } 
-                else
-                {
+                    $role = $kq[0]['role'];
                     $_SESSION['role'] = $role;
                     $_SESSION['iduser'] = $kq[0]['id'];
                     $_SESSION['userName'] = $kq[0]['userName'];
-                    header('Location: index.php');
+                    if($role == 1)
+                    {
+                        $_SESSION['role'] = $role;
+                        header('Location: admin/index.php');
+                    }
+                    else
+                    {
+                        header('Location: index.php');
+                    } 
+                    $errDN = ""; 
+                }   
+                else
+                {   
+                    $errDN = "Tên đăng nhập hoặc mật khẩu không đúng"; 
                 }
             }
             include "view/login.php";
@@ -176,116 +255,67 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             unset($_SESSION['role']);
             unset($_SESSION['iduser']);
             unset($_SESSION['userName']);
-            header('Location: index.php');
+            header('Location:index.php');
             break;
         case 'dangky':
-            if (!isset($_POST['dangky'])) {
-                include "view/register.php";
-            } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $errors = [];
-            
-                // Lấy dữ liệu từ form
-                $f_name = $_POST['f_name'];
-                $l_name = $_POST['l_name'];
-                $diachi = $_POST['diachi'];
-                $tinh = $_POST['hidden_tinh']; // Lấy tên tỉnh từ trường ẩn
-                $quan = $_POST['hidden_quan']; // Lấy tên quận huyện từ trường ẩn
-                $phuong = $_POST['hidden_phuong']; // Lấy giá trị của phường xã
-                $sdt = $_POST['sdt'];
-                $email = $_POST['email'];
-                $userName = $_POST['userName'];
-                $password = $_POST['password'];
-                $confirm_pwd = $_POST['confirm_pwd'];
-            
-                // Kết nối cơ sở dữ liệu
-                $conn = ketnoi();
-            
-                // Kiểm tra f_name và l_name không được chứa ký tự số
-                if (preg_match('/[0-9]/', $f_name)) {
-                    $errors['f_name'] = "Họ không được chứa ký tự số.";
-                }
-                if (preg_match('/[0-9]/', $l_name)) {
-                    $errors['l_name'] = "Tên không được chứa ký tự số.";
-                }
-            
-                // Kiểm tra sdt chỉ chứa số và có độ dài đúng 10 số
-                if (!preg_match('/^[0-9]{10}$/', $sdt)) {
-                    $errors['sdt'] = "Số điện thoại phải đúng 10 số.";
-                } else {
-                    // Kiểm tra định dạng số điện thoại Vinaphone, Mobifone, Viettel
-                    $valid_sdt_prefixes = [
-                        '086', '096', '097', '098', // Viettel
-                        '089', '090', '093', // Mobifone
-                        '088', '091', '094' // Vinaphone
-                    ];
-                    $prefix = substr($sdt, 0, 3);
-                    if (!in_array($prefix, $valid_sdt_prefixes)) {
-                        $errors['sdt'] = "Số điện thoại không đúng định dạng.";
-                    }
-                }
-            
-                // Kiểm tra định dạng email
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $errors['email'] = "Email không hợp lệ.";
-                } else {
-                    // Kiểm tra email có trùng lặp không
-                    $sql = "SELECT email FROM users WHERE email = :email";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->execute([':email' => $email]);
-                    if ($stmt->rowCount() > 0) {
-                        $errors['email'] = "Email đã tồn tại.";
-                    }
-                }
-            
-                // Kiểm tra tên đăng nhập có trùng lặp không
-                $sql = "SELECT userName FROM users WHERE userName = :userName";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute([':userName' => $userName]);
-                if ($stmt->rowCount() > 0) {
-                    $errors['userName'] = "Tên đăng nhập đã tồn tại.";
-                }
-            
-                // Kiểm tra password
-                if (strlen($password) < 8 || !preg_match('/\d/', $password)) {
-                    $errors['password'] = "Mật khẩu phải ít nhất 8 ký tự và có ít nhất một số.";
-                }
-            
-                // Kiểm tra confirm password
-                if ($password !== $confirm_pwd) {
-                    $errors['confirm_pwd'] = "Mật khẩu xác nhận không khớp.";
-                } else {
-                    // Hash mật khẩu
-                    $password_hashed = password_hash($password, PASSWORD_BCRYPT);
-                    
-                }
-                
-                // Nếu không có lỗi, thực hiện câu lệnh INSERT
-                if (empty($errors)) {
-
-                    $sql = "INSERT INTO users (f_name, l_name, diachi, tinh, quan, phuong, sdt, email, userName, password, session, role) 
-                            VALUES (:f_name, :l_name, :diachi, :tinh, :quan, :phuong, :sdt, :email, :userName, :password, '', 0)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->execute([
-                        ':f_name' => $f_name,
-                        ':l_name' => $l_name,
-                        ':diachi' => $diachi,
-                        ':tinh' => $tinh,
-                        ':quan' => $quan,
-                        ':phuong' => $phuong,
-                        ':sdt' => $sdt,
-                        ':email' => $email,
-                        ':userName' => $userName,
-                        ':password' => $password_hashed
-                    ]);
-                    include "view/login.php";
-                } else {
-                    include "view/register.php";
-                }
-            }
+            include "view/register.php";
             break;
         case 'taikhoancuatoi':
-            if(isset($_SESSION['role']))
+            $readonly = "";
+            $err = "";
+            $infor = "";
+            if(isset($_SESSION['role']) || isset($_COOKIE['id']))
             {
+                if(isset($_SESSION['iduser']))
+                {
+                    $hoadon = getHoaDon($_SESSION['iduser']);
+                    $infor = getInfor($_SESSION['iduser']);
+                }
+                if(isset($_COOKIE['id']))
+                {
+                    $hoadon = getHoaDon($_COOKIE['id']);
+                    $infor = getInfor($_COOKIE['id']);
+                }
+                if(isset($_POST['btnThayDoi']))
+                {
+           
+                    $f_name = $_POST['f_name'];
+                    $l_name = $_POST['l_name'];
+                    $diachi = $_POST['diachi'];
+                    $sdt = $_POST['sdt'];
+                    $email = $_POST['email'];
+                    $tinh = $_POST['hidden_tinh'];
+                    $quan = $_POST['hidden_quan'];
+                    $phuong = $_POST['hidden_phuong'];
+                    if($f_name == "" || $l_name == "" || $diachi == "" || $sdt == "")
+                    {
+                        $err = "Vui lòng nhập đầy đủ thông tin";
+                    }
+                    else if($tinh == "" || $quan == "" || $phuong == "")
+                    {
+                        $err = "Vui lòng chọn địa chỉ";
+                    }
+                    else
+                    {
+                        $diachifull = $diachi . ', ' . $phuong . ', ' . $quan . ', ' . $tinh;
+                        if(isset($_SESSION['iduser']))
+                        {
+                            $updateUser = UpdateUser($_SESSION['iduser'],$f_name,$l_name,$diachifull,$sdt,$email);
+                            $err = "Thay đổi thành công";
+                        }                   
+                        if(isset($_COOKIE['id']))
+                        {
+                            $updateUser = UpdateUser($_COOKIE['id'],$f_name,$l_name,$diachifull,$sdt,$email);
+                            $err = "Thay đổi thành công";
+                        }         
+                    }
+                }
+                if(isset($_GET['MaHD']))
+                {
+                    $maHD = $_GET['MaHD'];
+                    $deleteHD = DeleteHoaDon($maHD);
+                    header('Location: index.php?page=taikhoancuatoi');
+                }
                 include "view/my-account.php";
             }
             else
@@ -297,7 +327,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             include "view/cart.php";
             break;
         case 'DatHangThanhCong':
-            if(isset($_SESSION['role']))
+            if(isset($_SESSION['role']) || isset($_COOKIE['id']))
             {
                 include "DatHangThanhCong.php";
             }

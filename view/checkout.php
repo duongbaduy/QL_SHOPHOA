@@ -53,11 +53,12 @@ $tong = 0;
                                             </font>
                                         </span>
                                     </label>
-                                    <input placeholder="" name="hoten" type="text">
+                                    <input placeholder="" name="hoten" value="<?php echo  $infor[0]['l_name'] ,' ', $infor[0]['f_name'] ?>" type="text" readonly>
+                                    <p class="text-danger"><?php echo $errHT ?></p>
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md-12 col-custom">
+                            <div class="col-md-12 col-custom">
                                 <div class="checkout-form-list">
                                     <label>
                                         <font style="vertical-align: inherit;">
@@ -68,23 +69,11 @@ $tong = 0;
                                             </font>
                                         </span>
                                     </label>
-                                    <input placeholder="Địa chỉ đường phố" name="diachi" type="text">
+                                    <input placeholder="Địa chỉ đường phố" name="diachi" type="text" value="<?php echo $infor[0]['diachi'] ?>">
+                                    <p class="text-danger"><?php echo $errDC ?></p>
                                 </div>
-                            </div> -->
-                            <label for="province">Province:</label>
-                            <select id="province" name="province" required>
-                                <option value="">Select Province</option>
-                            </select><br><br>
+                            </div>
 
-                            <label for="district">District:</label>
-                            <select id="district" name="district" required>
-                                <option value="">Select District</option>
-                            </select><br><br>
-
-                            <label for="ward">Ward:</label>
-                            <select id="ward" name="ward" required>
-                                <option value="">Select Ward</option>
-                            </select><br><br>
                             <div class="col-md-6 col-custom">
                                 <div class="checkout-form-list">
                                     <label>
@@ -96,7 +85,8 @@ $tong = 0;
                                             </font>
                                         </span>
                                     </label>
-                                    <input placeholder="" name="email" type="email">
+                                    <input placeholder="" name="email" value="<?php echo $infor[0]['email'] ?>" type="email" readonly>
+                                    <p class="text-danger"><?php echo $errEmail ?></p>
                                 </div>
                             </div>
                             <div class="col-md-6 col-custom">
@@ -110,36 +100,10 @@ $tong = 0;
                                             </font>
                                         </span>
                                     </label>
-                                    <input type="text" name="sdt">
+                                    <input type="text" name="sdt" readonly value="<?php echo $infor[0]['sdt'] ?>">
+                                    <p class="text-danger"><?php echo $errSDT ?></p>
                                 </div>
-                            </div>
-                            <div class="col-md-12 col-custom">
-                                <div class="checkout-form-list create-acc">
-                                    <input id="cbox" type="checkbox">
-                                    <label for="cbox">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Tạo một tài khoản?</font>
-                                        </font>
-                                    </label>
-                                </div>
-                                <div id="cbox-info" class="checkout-form-list create-account">
-                                    <p class="mb-2">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Tạo một tài khoản bằng cách nhập thông tin dưới đây. Nếu bạn là khách hàng cũ, vui lòng đăng nhập ở đầu trang.</font>
-                                        </font>
-                                    </p>
-                                    <label>
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Mật khẩu tài khoản </font>
-                                        </font><span class="required">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">*</font>
-                                            </font>
-                                        </span>
-                                    </label>
-                                    <input placeholder="mật khẩu" type="password">
-                                </div>
-                            </div>
+                            </div>                      
                         </div>
                         <div class="different-address">
                             <div class="ship-different-title">
@@ -324,13 +288,20 @@ $tong = 0;
                                                     </font><strong class="product-quantity">
                                                         <font style="vertical-align: inherit;">
                                                             <font style="vertical-align: inherit;">
-                                                                × <?php echo $item['3'] ?></font>
+                                                                × <?php echo $item['3'] ?>
+                                                                
+                                                            </font>
                                                         </font>
                                                     </strong>
                                                 </td>
                                                 <td class="cart-product-total text-center"><span class="amount">
                                                         <font style="vertical-align: inherit;">
-                                                            <font style="vertical-align: inherit;"><?php echo $tt ?></font>
+                                                            <font style="vertical-align: inherit;">                                           
+                                                            <?php 
+                                                                $formattedValue = number_format($tt, 0, ',', '.') . ' VNĐ';
+                                                                echo $formattedValue;
+                                                            ?>
+                                                        </font>
                                                         </font>
                                                     </span></td>
                                             </tr>
@@ -346,7 +317,11 @@ $tong = 0;
                                         </th>
                                         <td class="text-center"><strong><span class="amount">
                                                     <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;"><?php echo $tong ?></font>
+                                                        <font style="vertical-align: inherit;">
+                                                        <?php 
+                                                            $formattedValue = number_format($tong, 0, ',', '.') . ' VNĐ';
+                                                            echo $formattedValue;
+                                                        ?></font>
                                                     </font>
                                                 </span></strong></td>
                                     </tr>
@@ -355,7 +330,7 @@ $tong = 0;
                             
                         </div>
                         <div class="payment-method">
-                            <div class="payment-accordion">
+                            <div class="payment-accordion">                       
                                 <div id="accordion">
                                     <div class="card">
                                         <div class="card-header" id="#payment-1">
@@ -363,7 +338,7 @@ $tong = 0;
                                                 <a href="#" class="" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                     <font style="vertical-align: inherit;">
                                                         <font style="vertical-align: inherit;">
-                                                            Chuyển khoản trực tiếp.
+                                                            Thanh toán khi nhận hàng
                                                         </font>
                                                     </font>
                                                 </a>
@@ -385,7 +360,7 @@ $tong = 0;
                                                 <a href="#" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                     <font style="vertical-align: inherit;">
                                                         <font style="vertical-align: inherit;">
-                                                            Thanh toán séc
+                                                            Thanh toán trực tuyến
                                                         </font>
                                                     </font>
                                                 </a>
@@ -400,38 +375,15 @@ $tong = 0;
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" id="#payment-3">
-                                            <h5 class="panel-title mb-3">
-                                                <a href="#" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">
-                                                            PayPal
-                                                        </font>
-                                                    </font>
-                                                </a>
-                                            </h5>
-                                        </div>
-                                        <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                            <div class="card-body mb-2 mt-2">
-                                                <p>
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">Thực hiện thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng ID đơn hàng của bạn làm tài liệu tham khảo thanh toán. Đơn đặt hàng của bạn sẽ không được chuyển cho đến khi tiền đã được xóa trong tài khoản của chúng tôi.</font>
-                                                    </font>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>                         
                                 </div>
                                 <div class="order-button-payment">
-
+                                    <p>Quý khách muốn thay đổi thông tin vui lòng nhấn <a href="index.php?page=taikhoancuatoi" class="text-primary ">vào đây</a></p>
                                     <button type="submit" name="btndathang" class="btn flosun-button secondary-btn black-color rounded-0 w-100">
                                         <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Đặt hàng 123</font>
+                                            <font style="vertical-align: inherit;">Đặt hàng</font>
                                         </font>
-                                    </button>
-                                    <p class="text-danger "><?php echo $err ?></p>
+                                    </button>                               
                                 </div>
                             </div>
                         </div>
@@ -439,9 +391,5 @@ $tong = 0;
                 </div>
             </div>
         </form>
-
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./index.js"></script>

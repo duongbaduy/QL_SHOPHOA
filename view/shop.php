@@ -47,7 +47,7 @@
                     foreach ($kq as $sp) {
                         $maHinh = $sp['MaSP']; // Lấy mã hình từ sản phẩm
                         $hinhanh = get_HinhAnh($maHinh);
-                ?>
+                    ?>
                         <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
                             <div class="product-item">
 
@@ -55,7 +55,7 @@
 
                                     <div class="product-image">
                                         <a class="d-block" href="index.php?page=chitietsanpham&id=<?php echo $sp['MaSP'] ?>">
-                                            <img src="view/assets/images/product/<?=$hinhanh[0]['TenHinh']?>" alt="" class="product-image-1 w-100">
+                                            <img src="view/assets/images/product/<?php echo $sp['HinhAnh'] ?>" alt="" class="product-image-1 w-100">
                                             <img src="view/assets/images/product/" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
                                         <span class="onsale">
@@ -93,14 +93,15 @@
                                         <div class="price-box">
                                             <span class="regular-price ">
                                                 <font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;"><?php echo $sp['DonGia'] ?></font>
+                                                    <font style="vertical-align: inherit;">
+                                                    <?php 
+                                                    $dongia = number_format($sp['DonGia'], 0, ',', '.') . ' VNĐ';
+                                                    echo  $dongia; 
+                                                    ?>
+                                                </font>
                                                 </font>
                                             </span>
-                                            <span class="old-price"><del>
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">$70,00</font>
-                                                    </font>
-                                                </del></span>
+                                            
                                         </div>
 
                                     </div>
@@ -112,8 +113,13 @@
                     }
                     $conn = null;
                 }
-
+                else {
                 ?>
+                    <div class="" style="height: 200px;">
+                        <h2 class=" fw-bold text-center ">Không có sản phẩm trong giỏ hàng</h2>
+                    </div>
+                    
+                <?php } ?>
             </div>
             <!-- Shop Wrapper End -->
             <!-- Bottom Toolbar Start -->
@@ -178,71 +184,24 @@
                     </div>
                 </div>
                 <div class="widget_inner">
-                    <div class="widget-list widget-mb-1">
-                        <h3 class="widget-title">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Bộ lọc giá</font>
-                            </font>
-                        </h3>               
-                        <!-- Widget Menu Start -->
-                        <form action="#">
-                            <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                                <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>
-                                <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
-                            </div>
-                            <button type="submit">
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">Lọc</font>
-                                </font>
-                            </button>
-                            <input type="text" name="text" id="amount">
-                        </form>
-                        <!-- Widget Menu End -->
-                    </div>
+                    
 
                     <div class="widget-list widget-mb-3">
                         <h3 class="widget-title">
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Thẻ</font>
+                                <font style="vertical-align: inherit;">Màu sắc</font>
                             </font>
                         </h3>
                         <div class="sidebar-body">
                             <ul class="tags">
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Hoa hồng</font>
-                                        </font>
-                                    </a></li>
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">hướng dương</font>
-                                        </font>
-                                    </a></li>
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">hoa tulip</font>
-                                        </font>
-                                    </a></li>
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Hoa loa kèn</font>
-                                        </font>
-                                    </a></li>
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Thông minh</font>
-                                        </font>
-                                    </a></li>
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Hiện đại</font>
-                                        </font>
-                                    </a></li>
-                                <li><a href="#">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Quà</font>
-                                        </font>
-                                    </a></li>
+                                <?php foreach($mausac as $mau) {?>
+                                    <li><a href="index.php?page=sanpham&mamau=<?php echo $mau['MaMau'] ?>">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;"><?php echo $mau['TenMau'] ?></font>
+                                            </font>
+                                        </a>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>

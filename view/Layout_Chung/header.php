@@ -81,10 +81,20 @@
                                             <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Về chúng tôi</font></font></span>
                                         </a>
                                     </li>
-                                <?php if(isset($_SESSION['userName']) && ($_SESSION['userName'])!=""){ ?>
+                                <?php if(isset($_COOKIE['id']) || isset($_SESSION['role'])){  ?>
                                     <li>
-                                        <a href="index.php?page=userinfo">
-                                            <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo  $_SESSION['userName']?></font></font></span>
+                                        <a href="index.php?page=taikhoancuatoi">
+                                            <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                            <?php 
+                                                if(isset($_COOKIE['id']))                                      
+                                                    echo  $_COOKIE['user_email'];
+                                                else
+                                                    echo $_SESSION['userName']                                             
+                                            ?>    
+                                        
+                                            </font></font>
+                            
+                                            </span>
                                             <i class="fa fa-angle-down"></i>
                                         </a>
                                         
@@ -94,9 +104,15 @@
                                         </ul>
                                     </li>
                                     <li>
+                                        <?php  if(isset($_COOKIE['id'])) {  ?>   
+                                        <a href="view/login/logout.php">
+                                            <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng xuất</font></font></span>
+                                        </a>
+                                        <?php } if(isset($_SESSION['role'])) {?>
                                         <a href="index.php?page=logout">
                                             <span class="menu-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Đăng xuất</font></font></span>
                                         </a>
+                                        <?php }?>
                                     </li>
                                 <?php } else {?>
                                 <li>
