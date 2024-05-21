@@ -26,15 +26,15 @@ function del($id){
         throw $e;  // Ném lại lỗi để xử lý hoặc ghi log nếu cần thiết
     }
 }
-function edithoa($id,$tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh, $trangthai)
+function edithoa($id,$tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh)
 {
     $conn = ketnoi();
     if($hinhanh=="")
     {
-        $sql = "UPDATE sanpham set TenSP='".$tensp."',MaLoai='".$maloai."',DonGia='".$dongia."', MoTa='".$mota."',MaMau='".$mamau."',SoLuong='".$soluong."',TrangThai='".$trangthai."' where MaSP=".$id;
+        $sql = "UPDATE sanpham set TenSP='".$tensp."',MaLoai='".$maloai."',DonGia='".$dongia."', MoTa='".$mota."',MaMau='".$mamau."',SoLuong='".$soluong."' where MaSP=".$id;
     }
     else{
-        $sql = "UPDATE sanpham set TenSP='".$tensp."',MaLoai='".$maloai."',DonGia='".$dongia."', MoTa='".$mota."',MaMau='".$mamau."',HinhAnh='".$hinhanh."',SoLuong='".$soluong."',TrangThai='".$trangthai."' where MaSP=".$id;
+        $sql = "UPDATE sanpham set TenSP='".$tensp."',MaLoai='".$maloai."',DonGia='".$dongia."', MoTa='".$mota."',MaMau='".$mamau."',HinhAnh='".$hinhanh."',SoLuong='".$soluong."' where MaSP=".$id;
     }
    
     $stmt = $conn->prepare($sql);
@@ -48,7 +48,7 @@ function edithoa($id,$tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh
 //     $stmt->execute();
 // }
 function inserthoa($tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh, $trangthai, $conn) {
-    $sql = "INSERT INTO sanpham (TenSP, MaLoai, DonGia, MaMau, SoLuong, MoTa, HinhAnh, TrangThai) VALUES (?, ?, ?, ?, ?,?.?,?)";
+    $sql = "INSERT INTO sanpham (TenSP, MaLoai, DonGia, MaMau, SoLuong, MoTa, HinhAnh, TrangThai) VALUES (?, ?, ?, ?, ?,?,?,?)";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh, $trangthai]);
 }

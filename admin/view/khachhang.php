@@ -1,19 +1,20 @@
 <div id="layoutSidenav_content">
 <main>
-<a class="btn btn-primary" href="index.php?act=insert_KH" style="margin:15px;">Thêm Mới</a>
-<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="post" action="index.php?act=hoa">
+<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="post" action="index.php?act=khachhang" style="margin-top: 10px;">
                 <div class="input-group">
                     <input class="form-control" type="text" name="keyword" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search" name="timkiem"></i></button>
                 </div>
 </form>
-<table class="table table-light table-striped">
+<br>
+<table class="table table-light table-striped" style="margin-top: 10px;">
            <th>Mã KH</th>
            <th>Họ</th>
            <th>Tên</th>
            <th>Email</th>
            <th>UserName</th>
            <th>Password</th>
+           <th></th>
            <th></th>
         </tr>
         <?php
@@ -30,8 +31,8 @@
             <td><?php echo $KH['email'] ?></td>
             <td><?php echo $KH['userName'] ?></td>
             <td><?php echo $KH['password'] ?></td>
-            <td><a href="index.php?act=edit_KH&id=<?php echo $KH['id'] ?>" class="btn btn-primary">Sửa</a>  <a href="index.php?act=del_KH&id=<?php echo $KH['id'] ?>" class="btn btn-danger">Xóa</a></td>
-            
+            <td><a href="index.php?act=edit_KH&id=<?php echo $KH['id'] ?>" class="btn btn-primary">Sửa</a> </td>
+            <td> <a href="index.php?act=del_KH&id=<?php echo $KH['id'] ?>" class="btn btn-danger">Xóa</a></td>
 </td>
         </tr>
         <?php 

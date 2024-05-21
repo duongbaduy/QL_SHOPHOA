@@ -76,6 +76,14 @@
                 ?>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="TrangThai" class="form-label">Trạng Thái</label>
+            <select name="TrangThai" id="" class="form-control">
+                <option value="1">Còn Hàng</option>
+                <option value="0">Hết Hàng</option>
+            </select>
+
+        </div>
         <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-secondary" name="insert"/>

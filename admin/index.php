@@ -71,7 +71,7 @@ if(isset($_GET['act']))
                 }
     
                 // Chèn sản phẩm mới vào CSDL
-                inserthoa($tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh, $trangthai,$conn);
+                inserthoa($tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh, $trangthai, $conn);
     
                 // Lấy ID của sản phẩm vừa chèn
                 $last_id = $conn->lastInsertId();
@@ -154,7 +154,7 @@ if(isset($_GET['act']))
                 $maloai = $_POST['MaLoai'];
                 $mamau = $_POST['MaMau'];
                 $mota = $_POST['MoTa'];
-        
+                $soluong = $_POST['SoLuong'];
                 $conn = ketnoi();
                 $success = true; // Initialize $success
         
@@ -181,7 +181,7 @@ if(isset($_GET['act']))
                     }
         
                     // Update main product information
-                    edithoa($id, $tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh, $trangthai);
+                    edithoa($id, $tensp, $maloai, $dongia, $mamau, $soluong, $mota, $hinhanh);
         
                     // Delete old image records from the database
                     $stmt = $conn->prepare("DELETE FROM hinhanh WHERE MaSP = ?");
@@ -345,8 +345,11 @@ if(isset($_GET['act']))
                             include "view/thongke/list.php";
                             break;
                         case 'thongke_doanhthu':
-                                $listtk=getall_thongke_doanhthu();
-                                $listtkdt = getall_thongke_doanhthu();
+                            $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
+                            $end_date = isset($_POST['end_date']) ? $_POST['end_date'] : null;
+                            
+                            $listtkdt = getall_thongke_doanhthu($start_date, $end_date);
+                        
                                 include "view/thongke/list_doanhthu.php";
                                 break;
                         case 'khachhang':
@@ -373,39 +376,7 @@ if(isset($_GET['act']))
                               
                                 include "view/khachhang.php";
                                 break;   
-                        case 'insert_KH':
-        
-                            if(!isset($_POST['insert_KH']))
-                            {
-                                include "view/insert_KH.php";
-                        
-                            }
-                            elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                // Lấy dữ liệu từ form
-                                //$id=$_POST['id'];
-                                $tenkh = $_POST['TenKH'];
-                                $diachi = $_POST['DiaChi'];
-                                $dienthoai = $_POST['DienThoai'];
-                                $email = $_POST['Email'];
-                                insert_KH($tenkh,$diachi,$dienthoai,$email);
-                                if(!isset($_GET['page']))
-                                {
-                                    $page = 1;
-                                }
-                                else
-                                {
-                                    $page = $_GET['page'];
-                                } 
-                                $soluongsp = 5;
-                                $kh = getall_KH1($page,$soluongsp);
-                                $total_rows = countRowsInTable_KH();
-                                $total_pages = ceil($total_rows / $soluongsp);
-                                include "view/khachhang.php";
-                            
-                            
-                            }
-                            
-                            break; 
+                       
 
                     case 'del_KH':
                         if(isset($_GET['id']))
@@ -500,8 +471,10 @@ if(isset($_GET['act']))
                                 $makh = $_POST['MaKH'];
                                 $ngaydat = $_POST['NgayDat'];
                                 $ghichu = $_POST['GhiChu'];
-                                
-                                edit_HD($id,$makh,$ngaydat,$ghichu);
+                                $dcgh = $_POST['DCGH'];
+                                $httt = $_POST['HTTT'];
+                                $tinhtrang = $_POST['TinhTrang'];
+                                edit_HD($id,$makh,$dcgh,$ngaydat,$ghichu,$httt,$tinhtrang);
                                 if(!isset($_GET['page']))
                                 {
                                     $page = 1;
@@ -540,8 +513,56 @@ if(isset($_GET['act']))
                         
                         include "view/hoadon.php";
                         break;
-        default:
-            include "view/home.php";
+                        case 'in_HD':
+                            
+                            require('../tfpdf/tfpdf.php');
+                            
+                            $pdf = new tFPDF();
+                            $pdf->AddPage();
+
+                            // Add a Unicode font (uses UTF-8)
+                            $pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
+                            $pdf->SetFont('DejaVu','',14);
+
+                            if(isset($_GET['act']) && $_GET['act'] == 'in_HD' && isset($_GET['id'])) {
+                                $id = $_GET['id'];
+                                $inHoaDon = in_HD($id);
+                            }
+                            // Select a standard font (uses windows-1252)
+                            $pdf->SetFont('Arial','',14);
+                            $pdf->Ln(10);
+                            $pdf->Write(10,'Đơn hàng của bạn gồm có:');
+                            $pdf->Ln(10);
+
+                            $width_cell=array(5,35,80,20,30,40);
+
+                            $pdf->Cell($width_cell[0],10,'Mã HD',1,0,'C',true);
+                            $pdf->Cell($width_cell[1],10,'Tên sản phẩm',1,0,'C',true);
+                            $pdf->Cell($width_cell[2],10,'Ngày đặt',1,0,'C',true);
+                            $pdf->Cell($width_cell[3],10,'Ghi chú',1,0,'C',true); 
+                            $pdf->Cell($width_cell[4],10,'Số lượng',1,0,'C',true);
+                            $pdf->Cell($width_cell[5],10,'Đơn giá',1,1,'C',true); 
+                            $pdf->SetFillColor(235,236,236); 
+                            
+                            foreach ($inHoaDon as $row) {
+                                $pdf->Cell(50, 10, $row['MaHD'], 1, 0);
+                                $pdf->Cell(50, 10, $row['TenSP'], 1, 0);
+                                $pdf->Cell(50, 10, $row['NgayDat'], 1, 0);
+                                $pdf->Cell(50, 10, $row['GhiChu'], 1, 0);
+                                $pdf->Cell(50, 10, $row['SoLuong'], 1, 0);
+                                $pdf->Cell(50, 10, $row['DonGia'], 1, 0);
+                            }
+                            
+
+                            
+                            $pdf->Write(10,'Cảm ơn bạn đã đặt hàng tại website của chúng tôi.');
+                            $pdf->Ln(10);
+
+                            $pdf->Output();
+                        break;
+                        
+                        default:
+                            include "view/home.php";
     }
 
 }

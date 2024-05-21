@@ -4,10 +4,10 @@ function del_HD($id){
     $sql ="DELETE FROM hoadon where MaHD=".$id;
     $conn->exec($sql);
 }
-function edit_HD($id,$makh,$ngaydat,$ghichu)
+function edit_HD($id,$makh,$dcgh,$ngaydat,$ghichu,$httt,$tinhtrang)
 {
     $conn = ketnoi();
-    $sql = "UPDATE hoadon set MaKH='".$makh."',NgayDat='".$ngaydat."',GhiChu='".$ghichu."' where MaHD=".$id;
+    $sql = "UPDATE hoadon set MaKH='".$makh."',NgayDat='".$ngaydat."',GhiChu='".$ghichu."',DiaChiGiaoHang='".$dcgh."',HinhThucThanhToan='".$httt."',TinhTrang='".$tinhtrang."' where MaHD=".$id;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 }
@@ -24,7 +24,9 @@ function getall_HD($key, $page, $soluongsp) {
     $conn = ketnoi();
     $sql = "SELECT * FROM hoadon WHERE 1 ";
     if ($key != "") {
-        $sql .= "AND MaHD LIKE '%" . $key . "%' ";
+        $sql .= "AND DiaChiGiaoHang LIKE '%" . $key . "%' ";
+        $sql .= "OR NgayDat LIKE '%" . $key . "%' ";
+        $sql .= "OR TinhTrang LIKE '%" . $key . "%' ";
     }
     $sql .= "ORDER BY MaHD ASC LIMIT " . $batdau . "," . $soluongsp;
     $stmt = $conn->prepare($sql);

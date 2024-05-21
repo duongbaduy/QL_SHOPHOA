@@ -1,17 +1,22 @@
 <div id="layoutSidenav_content">
 <main>
-<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="post" action="index.php?act=hoa">
+<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="post" action="index.php?act=hoadon">
                 <div class="input-group">
                     <input class="form-control" type="text" name="keyword" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search" name="timkiem"></i></button>
                 </div>
 </form>
-<table class="table table-light table-striped">
+<table class="table table-light table-striped" style="margin-top: 10px;">
            <th>Mã HD</th>
-           <th>Tên HD</th>
+           <th>Mã KH</th>
+           <th>Địa Chỉ Giao Hàng</th>
            <th>Ngày Đặt</th>
            <th>Ghi Chú</th>
            <th>Tổng Tiền</th>
+           <th>Thanh Toán</th>
+           <th>Tình Trạng</th>
+           <th></th>
+           <th></th>
            <th></th>
         </tr>
         <?php
@@ -24,10 +29,16 @@
         <tr>
             <td><?php echo $HD['MaHD'] ?></td>
             <td><?php echo $HD['MaKH'] ?></td>
+            <td><?php echo $HD['DiaChiGiaoHang'] ?></td>
             <td><?php echo $HD['NgayDat'] ?></td>
             <td><?php echo $HD['GhiChu'] ?></td>
             <td><?php echo $HD['TongTien'] ?></td>
-            <td><a href="index.php?act=edit_HD&id=<?php echo $HD['MaHD'] ?>" class="btn btn-primary">Sửa</a>  <a href="index.php?act=del_HD&id=<?php echo $HD['MaHD'] ?>" class="btn btn-danger">Xóa</a></td>
+            <td><?php echo $HD['HinhThucThanhToan'] ?></td>
+            <td><?php echo $HD['TinhTrang'] ?></td>
+            <td><a href="index.php?act=edit_HD&id=<?php echo $HD['MaHD'] ?>" class="btn btn-primary">Sửa</a> 
+            </td>
+            <td> <a href="index.php?act=del_HD&id=<?php echo $HD['MaHD'] ?>" class="btn btn-danger">Xóa</a></td>
+            <td><a href="view/in_HD.php?id=<?php echo $HD['MaHD'] ?>" class="btn btn-primary">In</a></td>
             
 </td>
         </tr>
