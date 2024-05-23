@@ -10,6 +10,7 @@ include "view/Layout_Chung/header.php";
 include "model/sanpham.php";
 include "model/SoLuong.php";
 include "model/MauSac.php";
+include "model/DiaChi.php";
 $mausac = get_AllMausac();
 include "model/HinhAnh.php";
 include "model/HoaDon.php";
@@ -365,38 +366,65 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
         case 'taikhoancuatoi':
             $readonly = "";
             $err = "";
+            $errDC = "";
             $infor = "";
             if(isset($_SESSION['role']) || isset($_COOKIE['id']))
             {
                 if(isset($_SESSION['iduser']))
                 {
+                    $diachi = getDiaChi($_SESSION['iduser']);
                     $hoadon = getHoaDon($_SESSION['iduser']);
                     $infor = getInfor($_SESSION['iduser']);
                 }
                 if(isset($_COOKIE['id']))
                 {
+                    $diachi = getDiaChi($_COOKIE['id']);
                     $hoadon = getHoaDon($_COOKIE['id']);
                     $infor = getInfor($_COOKIE['id']);
+                }
+                if(isset($_POST['btnThemDC']))
+                {
+                    $diachinha = $_POST['diachinha'];
+                    $tinh = $_POST['hidden_tinh'];
+                    $quan = $_POST['hidden_quan'];
+                    $phuong = $_POST['hidden_phuong'];
+                    if($diachinha == "")
+                    {
+                        $errDC = "Vui lòng nhập địa chỉ nhà";
+                    }
+                    else if($tinh == "" || $quan == "" || $phuong == "")
+                    {
+                        $errDC = "Vui lòng chọn địa chỉ";
+                    }
+                    else
+                    {
+                        if(isset($_SESSION['iduser']))
+                        {
+                            $insertDC = insertDiaChi($_SESSION['iduser'],$diachinha,$phuong,$quan,$tinh);
+                            $errDC = "Thêm địa chỉ thành công";
+                            header('Location: index.php?page=taikhoancuatoi');
+                        }                   
+                        if(isset($_COOKIE['id']))
+                        {
+                            $insertDC = insertDiaChi($_COOKIE['id'],$diachinha,$phuong,$quan,$tinh);
+                            $errDC = "Thêm địa chỉ thành công";
+                            header('Location: index.php?page=taikhoancuatoi');
+                        }         
+                    }
                 }
                 if(isset($_POST['btnThayDoi']))
                 {
            
                     $f_name = $_POST['f_name'];
                     $l_name = $_POST['l_name'];
-                    $diachi = $_POST['diachi'];
                     $sdt = $_POST['sdt'];
                     $email = $_POST['email'];
-                    $tinh = $_POST['hidden_tinh'];
-                    $quan = $_POST['hidden_quan'];
-                    $phuong = $_POST['hidden_phuong'];
-                    if($f_name == "" || $l_name == "" || $diachi == "" || $sdt == "")
+                    
+                    if($f_name == "" || $l_name == "" || $sdt == "")
                     {
                         $err = "Vui lòng nhập đầy đủ thông tin";
                     }
-                    else if($tinh == "" || $quan == "" || $phuong == "")
-                    {
-                        $err = "Vui lòng chọn địa chỉ";
-                    }
+                    
                     else
                     {
                         $diachifull = $diachi . ', ' . $phuong . ', ' . $quan . ', ' . $tinh;

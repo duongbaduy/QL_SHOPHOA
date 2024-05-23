@@ -21,8 +21,7 @@ class Controller {
                 <th scope="col">Last Name</th>
                 <th scope="col">Avatar</th>
                 <th scope="col">Email</th>
-                <th scope="col">SDT</th>
-                <th scope="col">Dia chi</th>
+                <th scope="col">SDT</th>         
                 </tr>
             </thead>
             <tbody>';
@@ -33,9 +32,7 @@ class Controller {
                 <td>'.$userInfo["l_name"].'</td>
                 <td><img style="max-width: 50px;" src="'.$userInfo["avatar"].'" alt="User Avatar"></td>
                 <td>'.$userInfo["email"].'</td>
-                <td>'.$userInfo["sdt"].'</td>
-                <td>'.$userInfo["diachi"].'</td>
-               
+                <td>'.$userInfo["sdt"].'</td>   
             </tr>
             ';
         }
