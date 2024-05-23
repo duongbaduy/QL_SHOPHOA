@@ -111,28 +111,28 @@ require_once('controller/core/controller.Class.php');
                                                     <div class="single-input-item mb-3">
                                                     
                                                         <label for="email" class="required mb-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ của quý khách là</font></font></label>
-                                                        <select class="form-select" name="diachi" id="">
-                                                        <?php                       
-                                                            
-                                                                
-                                                                foreach ($diachi as $dc) { 
-                                                                    // Kiểm tra nếu tất cả các phần tử của mảng đều tồn tại và không rỗng
-                                                                    if (!empty($dc['Duong']) && !empty($dc['Phuong']) && !empty($dc['Huyen']) && !empty($dc['Tinh'])) {
+                                                        <select class="form-select" name="diachifull" id="">
+                                                        <?php  
+                                                            if(isset($diachi)) {                                                                          
+                                                            foreach ($diachi as $dc) {              
+                                                            if (!empty($dc['Duong']) && !empty($dc['Phuong']) && !empty($dc['Huyen']) && !empty($dc['Tinh'])) {
                                                             ?>
-                                                                        <option value="<?php echo $dc['MaDC']; ?>">
-                                                                        
-                                                                            <?php echo $dc['Duong'] . ', ' . $dc['Phuong'] . ', ' . $dc['Huyen'] . ', ' . $dc['Tinh']; ?>
-                                                                        </option>
+                                                                <option value="<?php echo $dc['MaDC']; ?>">      
+                                                                    <?php echo $dc['Duong'] . ', ' . $dc['Phuong'] . ', ' . $dc['Huyen'] . ', ' . $dc['Tinh']; ?>
+                                                                </option>
                                                             <?php 
-                                                                    } 
-                                                                }
-                                                           
+                                                                } 
+                                                            }
+                                                             }
                                                             ?>
                                                         </select>
                                                     </div>                                        
                             
                                                     <div class="single-input-item single-item-button">
                                                         <button name="btnThemDC" class="btn flosun-button secondary-btn theme-color  rounded-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm địa chỉ </font></font></button>
+                                                    </div>
+                                                    <div class="single-input-item single-item-button mt-3">
+                                                        <button name="btnXoaDC" class="btn flosun-button secondary-btn theme-color  rounded-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Xóa địa chỉ </font></font></button>
                                                     </div>
                                                     <p class="text-danger"><?php echo $errDC ?></p>
                                                 </form>

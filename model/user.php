@@ -51,9 +51,9 @@
         return $kq;
     }
 
-    function UpdateUser($id,$f_name,$l_name,$diachi,$sdt,$email){
+    function UpdateUser($id,$f_name,$l_name,$sdt,$email){
         $conn = ketnoi();
-        $sql = "UPDATE users SET f_name = '$f_name',l_name = '$l_name',diachi = '$diachi', sdt = '$sdt', email = '$email' where id = '$id'";
+        $sql = "UPDATE users SET f_name = '$f_name',l_name = '$l_name', sdt = '$sdt', email = '$email' where id = '$id'";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $sanpham = $stmt->fetchAll();
