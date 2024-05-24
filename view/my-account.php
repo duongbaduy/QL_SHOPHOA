@@ -81,8 +81,65 @@ require_once('controller/core/controller.Class.php');
                             <div class="tab-content" id="myaccountContent">
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                <div class="myaccount-content">
+                                        <h3>
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Địa chỉ</font>
+                                            </font>
+                                        </h3>
+                                        
+                                        <div class="account-details-form">
+                                                <form action="index.php?page=taikhoancuatoi" method="post">                                 
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="display-name" class="required mb-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ nhà</font></font></label>
+                                                        <input name="diachinha" type="text" value="" id="display-name" placeholder="Địa chỉ nhà (số nhà,tên đường)">
+                                                        <input type="hidden" id="hidden_tinh" name="hidden_tinh" value="">
+                                                        <input type="hidden" id="hidden_quan" name="hidden_quan" value="">
+                                                        <input type="hidden" id="hidden_phuong" name="hidden_phuong" value="">
+                                                        <div class="css_select_div mt-2">
+                                                            <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
+                                                                <option value="0">Tỉnh Thành</option>
+                                                            </select> 
+                                                            <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
+                                                                <option value="0">Quận Huyện</option>
+                                                            </select> 
+                                                            <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
+                                                                <option value="0">Phường Xã</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                    
+                                                        <label for="email" class="required mb-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ của quý khách là</font></font></label>
+                                                        <select class="form-select" name="diachifull" id="">
+                                                        <?php  
+                                                            if(isset($diachi)) {                                                                          
+                                                            foreach ($diachi as $dc) {              
+                                                            if (!empty($dc['Duong']) && !empty($dc['Phuong']) && !empty($dc['Huyen']) && !empty($dc['Tinh'])) {
+                                                            ?>
+                                                                <option value="<?php echo $dc['MaDC']; ?>">      
+                                                                    <?php echo $dc['Duong'] . ', ' . $dc['Phuong'] . ', ' . $dc['Huyen'] . ', ' . $dc['Tinh']; ?>
+                                                                </option>
+                                                            <?php 
+                                                                } 
+                                                            }
+                                                             }
+                                                            ?>
+                                                        </select>
+                                                    </div>                                        
+                            
+                                                    <div class="single-input-item single-item-button">
+                                                        <button name="btnThemDC" class="btn flosun-button secondary-btn theme-color  rounded-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm địa chỉ </font></font></button>
+                                                    </div>
+                                                    <div class="single-input-item single-item-button mt-3">
+                                                        <button name="btnXoaDC" class="btn flosun-button secondary-btn theme-color  rounded-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Xóa địa chỉ </font></font></button>
+                                                    </div>
+                                                    <p class="text-danger"><?php echo $errDC ?></p>
+                                                </form>
+                                            </div>
+                                    </div>
                                     <div class="myaccount-content">
-                                    <h3>
+                                        <h3>
                                             <font style="vertical-align: inherit;">
                                                 <font style="vertical-align: inherit;">Chi tiết tài khoản</font>
                                             </font>
@@ -118,27 +175,14 @@ require_once('controller/core/controller.Class.php');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="single-input-item mb-3">
-                                                        <label for="display-name" class="required mb-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ nhà</font></font></label>
-                                                        <input name="diachi" type="text" value="" id="display-name" placeholder="Địa chỉ nhà (số nhà,tên đường)">
-                                                        <input type="hidden" id="hidden_tinh" name="hidden_tinh" value="">
-                                                        <input type="hidden" id="hidden_quan" name="hidden_quan" value="">
-                                                        <input type="hidden" id="hidden_phuong" name="hidden_phuong" value="">
-                                                        <div class="css_select_div mt-2">
-                                                            <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
-                                                                <option value="0">Tỉnh Thành</option>
-                                                            </select> 
-                                                            <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
-                                                                <option value="0">Quận Huyện</option>
-                                                            </select> 
-                                                            <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
-                                                                <option value="0">Phường Xã</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                    
                                                     <div class="single-input-item mb-3">
                                                         <label for="email" class="required mb-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ của quý khách là</font></font></label>
-                                                        <input  type="text" value="<?php echo $infor[0]['diachi'] ?>" id="email" placeholder="Địa chỉ" readonly>
+                                                        <select class="form-select" name="" id="">
+                                                            <?php foreach ($diachi as $dc) { ?>
+                                                            <option value="<?php echo $dc['MaDC']?>"><?php echo $dc['Duong'] . ', ' . $dc['Phuong'] . ', ' . $dc['Huyen'] . ', ' . $dc['Tinh']; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
                                                     <div class="single-input-item mb-3">
                                                         <label for="email" class="required mb-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SĐT</font></font></label>
