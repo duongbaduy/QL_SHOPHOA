@@ -347,9 +347,6 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                             // Bắt đầu transaction
                             $conn->beginTransaction();
                 
-                            // Hash mật khẩu
-                            $password_hashed = password_hash($password, PASSWORD_BCRYPT);
-                
                             // Thêm user vào bảng users
                             $sql = "INSERT INTO users (f_name, l_name, sdt, email, userName, password, session, role) 
                                     VALUES (:f_name, :l_name, :sdt, :email, :userName, :password, '', 0)";
@@ -368,15 +365,15 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                 
                             // Thêm địa chỉ vào bảng diachi
                             $sql = "INSERT INTO diachi (MaKH, Duong, Phuong, Huyen, Tinh) 
-                                    VALUES (:MaKH, :Duong, :Phuong, :Huyen, :Tinh)";
-                            $stmt = $conn->prepare($sql);
-                            $stmt->execute([
-                                ':MaKH' => $user_id,
-                                ':Duong' => $diachi,
-                                ':Phuong' => $phuong,
-                                ':Huyen' => $quan,
-                                ':Tinh' => $tinh
-                            ]);
+                                VALUES (:MaKH, :Duong, :Phuong, :Huyen, :Tinh)";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->execute([
+                                    ':MaKH' => $user_id,
+                                    ':Duong' => $diachi,
+                                    ':Phuong' => $phuong,
+                                    ':Huyen' => $quan,
+                                    ':Tinh' => $tinh
+                                ]);
                 
                             // Commit transaction
                             $conn->commit();
