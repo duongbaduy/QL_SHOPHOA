@@ -10,11 +10,14 @@ include "view/Layout_Chung/header.php";
 include "model/sanpham.php";
 include "model/SoLuong.php";
 include "model/MauSac.php";
-include "model/DiaChi.php";
 $mausac = get_AllMausac();
 include "model/HinhAnh.php";
 include "model/HoaDon.php";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $tong=0;
+$errDN = "";
 $SP = getAll_SanPham();
 if (isset($_GET['page']) && $_GET['page'] != "") {
     switch ($_GET['page']) {
@@ -136,15 +139,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             }
    
             if(isset($_SESSION['role']) || isset($_COOKIE['id']))
-            { 
-                if(isset($_COOKIE['id']))
-                {
-                    $diachi = getDiaChi($_COOKIE['id']);
-                }  
-                if(isset($_SESSION['role']))
-                {
-                    $diachi = getDiaChi($_SESSION['iduser']);
-                }           
+            {            
                 $errHT ="";
                 $errDC ="";
                 $errEmail ="";
@@ -155,7 +150,8 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                         header("Location: index.php");
                         exit(); // Kết thúc script để ngăn mã tiếp tục chạy
                     }
-                    $hoten = $_POST['hoten'];           
+                    $hoten = $_POST['hoten'];
+                    $diachi = $_POST['diachi'];
                     $email = $_POST['email'];
                     $sdt = $_POST['sdt'];
                     $ghichu = $_POST['ghichu'];
@@ -163,7 +159,11 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                     if($hoten == "")
                     {
                         $errHT = "Vui lòng cập nhật họ tên <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a>";
-                    }          
+                    }
+                    else if($diachi == "")
+                    {
+                        $errDC = "Vui lòng nhập địa chỉ <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a>";
+                    }
                     else if($email == "")
                     {
                         $errEmail = "Vui lòng cập nhật email <a href='index.php?page=taikhoancuatoi' class='text-primary'>Tại đây</a> ";
@@ -180,48 +180,25 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                         }
                         // Gọi hàm InsertHoaDon() và truyền thông tin vào
                         if (isset($_SESSION['role'])) {
-                            if(isset($_POST['diachifull']))
+                            $lastID = InsertHoaDon($_SESSION['iduser'], $diachi, $ngaydat, $ghichu, $tong);
+                         
+                            foreach ($_SESSION['giohang'] as $item) 
                             {
-                                $selectedDC = $_POST['diachifull'];
-                                $getoneDC = getOneDiaChi($_SESSION['iduser'],$selectedDC);
-                                $diachi = $getoneDC['Duong'] . ", " . $getoneDC['Phuong'] . ", " . $getoneDC['Huyen'] . ", " . $getoneDC['Tinh'];
-                                $lastID = InsertHoaDon($_SESSION['iduser'], $diachi, $ngaydat, $ghichu, $tong);
-                            
-                                foreach ($_SESSION['giohang'] as $item) 
-                                {
-                                    InserCTHoaDon($lastID, $item[0], $item[3],$item[4]);
-                                } 
-                                unset($_SESSION['giohang']);
-                                header("Location: index.php?page=DatHangThanhCong");
-                                exit();
-                            }    
-                            else
-                            {
-                                $errDC = "Địa chỉ không được để trống";
-                            }     
+                                InserCTHoaDon($lastID, $item[0], $item[3],$item[4]);
+                            }          
                         }
                         if (isset($_COOKIE['id'])) {
-                            if(isset($_POST['diachifull']))
+                            $lastID = InsertHoaDon($_COOKIE['id'], $diachi, $ngaydat, $ghichu, $tong);
+                            
+                            foreach ($_SESSION['giohang'] as $item) 
                             {
-                                $selectedDC = $_POST['diachifull'];
-                                $getoneDC = getOneDiaChi($_COOKIE['id'],$selectedDC);
-                                $diachi = $getoneDC['Duong'] . ", " . $getoneDC['Phuong'] . ", " . $getoneDC['Huyen'] . ", " . $getoneDC['Tinh'];
-                                $lastID = InsertHoaDon($_COOKIE['id'], $diachi, $ngaydat, $ghichu, $tong);
-                                
-                                foreach ($_SESSION['giohang'] as $item) 
-                                {
-                                    InserCTHoaDon($lastID, $item[0], $item[3],$item[4]);
-                                }
-                                unset($_SESSION['giohang']);
-                                header("Location: index.php?page=DatHangThanhCong");
-                                exit();
-                            }
-                            else
-                            {
-                                $errDC = "Địa chỉ không được để trống";
+                                InserCTHoaDon($lastID, $item[0], $item[3],$item[4]);
                             }
                         }
                         // Xóa giỏ hàng sau khi đặt hàng thành công
+                        unset($_SESSION['giohang']);
+                        header("Location: index.php?page=DatHangThanhCong");
+                        exit();
                     }    
                 }
                 
@@ -235,8 +212,15 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             {
                 header('Location: index.php');
             }
-            
             break;
+            case 'quenmatkhau':
+                include "view/forgot-password.php";
+                break;
+
+            case 'doimatkhau':
+                    include "view/change-password.php";
+                break;
+                
         case 'viewcart':      
             include "view/cart.php";
             break;
@@ -247,7 +231,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             include "view/contact-us.php";
             break;
         case 'login':
-            $errDN = "";
+            
             if((isset($_POST['login']) ||isset($_COOKIE['id']) && $_POST['login]']))
             {
                 $username = $_POST['username'];
@@ -284,6 +268,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             unset($_SESSION['userName']);
             header('Location:index.php');
             break;
+        
             case 'dangky':
                 if (!isset($_POST['dangky'])) {
                     include "view/register.php";
@@ -315,20 +300,15 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                     }
                 
                     // Kiểm tra sdt chỉ chứa số và có độ dài đúng 10 số
-                    if (!preg_match('/^[0-9]{10}$/', $sdt)) {
-                        $errors['sdt'] = "Số điện thoại phải đúng 10 số.";
-                    } else {
-                        // Kiểm tra định dạng số điện thoại Vinaphone, Mobifone, Viettel
-                        $valid_sdt_prefixes = [
-                            '086', '096', '097', '098', // Viettel
-                            '089', '090', '093', // Mobifone
-                            '088', '091', '094' // Vinaphone
-                        ];
-                        $prefix = substr($sdt, 0, 3);
-                        if (!in_array($prefix, $valid_sdt_prefixes)) {
-                            $errors['sdt'] = "Số điện thoại không đúng định dạng.";
-                        }
-                    }
+                    if (!preg_match("/^[0-9]{10,11}$/", $sdt)) {
+                        $errors['sdt'] = "Số điện thoại phải đúng 10 số";
+                    } elseif (!preg_match("/^(03[2-9]|05[6-8]|07[0|6-9]|08[1-9]|09[0-9])[0-9]{7}$/", $sdt) &&
+                              !preg_match("/^(09[6-8]|09[0-3]|07[7-9]|07[0-6]|05[8-9]|05[0-3]|03[9]|03[1-4])[0-9]{7}$/", $sdt) &&
+                              !preg_match("/^(08[6-9]|08[0-9])[0-9]{7}$/", $sdt) &&
+                              !preg_match("/^(01[26-9]|01[0-9])[0-9]{7}$/", $sdt) &&
+                              !preg_match("/^(04[3-9]|04[0-9])[0-9]{7}$/", $sdt)) {
+                        $errors['sdt'] = "Số điện thoại không hợp lệ.";
+                    } 
                 
                     // Kiểm tra định dạng email
                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -359,154 +339,108 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                     // Kiểm tra confirm password
                     if ($password !== $confirm_pwd) {
                         $errors['confirm_pwd'] = "Mật khẩu xác nhận không khớp.";
-                    } else {
-                        // Hash mật khẩu
-                        $password_hashed = password_hash($password, PASSWORD_BCRYPT);
-    
                     }
                     
                     // Nếu không có lỗi, thực hiện câu lệnh INSERT
                     if (empty($errors)) {
-    
-                        $sql = "INSERT INTO users (f_name, l_name, diachi, tinh, quan, phuong, sdt, email, userName, password, session, role) 
-                                VALUES (:f_name, :l_name, :diachi, :tinh, :quan, :phuong, :sdt, :email, :userName, :password, '', 0)";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->execute([
-                            ':f_name' => $f_name,
-                            ':l_name' => $l_name,
-                            ':diachi' => $diachi,
-                            ':tinh' => $tinh,
-                            ':quan' => $quan,
-                            ':phuong' => $phuong,
-                            ':sdt' => $sdt,
-                            ':email' => $email,
-                            ':userName' => $userName,
-                            ':password' => $password_hashed
-                        ]);
-                        include "view/login.php";
+                        try {
+                            // Bắt đầu transaction
+                            $conn->beginTransaction();
+                
+                            // Hash mật khẩu
+                            $password_hashed = password_hash($password, PASSWORD_BCRYPT);
+                
+                            // Thêm user vào bảng users
+                            $sql = "INSERT INTO users (f_name, l_name, sdt, email, userName, password, session, role) 
+                                    VALUES (:f_name, :l_name, :sdt, :email, :userName, :password, '', 0)";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute([
+                                ':f_name' => $f_name,
+                                ':l_name' => $l_name,
+                                ':sdt' => $sdt,
+                                ':email' => $email,
+                                ':userName' => $userName,
+                                ':password' => $password_hashed
+                            ]);
+                
+                            // Lấy user ID vừa insert
+                            $user_id = $conn->lastInsertId();
+                
+                            // Thêm địa chỉ vào bảng diachi
+                            $sql = "INSERT INTO diachi (MaKH, Duong, Phuong, Huyen, Tinh) 
+                                    VALUES (:MaKH, :Duong, :Phuong, :Huyen, :Tinh)";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute([
+                                ':MaKH' => $user_id,
+                                ':Duong' => $diachi,
+                                ':Phuong' => $phuong,
+                                ':Huyen' => $quan,
+                                ':Tinh' => $tinh
+                            ]);
+                
+                            // Commit transaction
+                            $conn->commit();
+                
+                            include "view/login.php";
+                        } catch (Exception $e) {
+                            // Rollback transaction nếu có lỗi
+                            $conn->rollBack();
+                            $errors['database'] = "Đã có lỗi xảy ra: " . $e->getMessage();
+                            include "view/register.php";
+                        }
                     } else {
                         include "view/register.php";
                     }
                 }
                 break;
+            
         case 'taikhoancuatoi':
             $readonly = "";
             $err = "";
-            $errDC = "";
             $infor = "";
             if(isset($_SESSION['role']) || isset($_COOKIE['id']))
             {
                 if(isset($_SESSION['iduser']))
                 {
-                    $diachi = getDiaChi($_SESSION['iduser']);
                     $hoadon = getHoaDon($_SESSION['iduser']);
                     $infor = getInfor($_SESSION['iduser']);
-                    $countDiaChi = countDiaChi($_SESSION['iduser']);
                 }
                 if(isset($_COOKIE['id']))
                 {
-                    $diachi = getDiaChi($_COOKIE['id']);
                     $hoadon = getHoaDon($_COOKIE['id']);
                     $infor = getInfor($_COOKIE['id']);
-                    $countDiaChi = countDiaChi($_COOKIE['id']);
-                }
-                if(isset($_POST['btnThemDC']))
-                {
-                    $diachinha = $_POST['diachinha'];
-                    $tinh = $_POST['hidden_tinh'];
-                    $quan = $_POST['hidden_quan'];
-                    $phuong = $_POST['hidden_phuong'];
-                    if($diachinha == "")
-                    {
-                        $errDC = "Vui lòng nhập địa chỉ nhà";
-                    }
-                    else if($tinh == "" || $quan == "" || $phuong == "")
-                    {
-                        $errDC = "Vui lòng chọn địa chỉ";
-                    }           
-                    else
-                    {
-                        if(isset($_SESSION['iduser']))
-                        {
-                           
-                            if($countDiaChi <5)
-                            {
-                            $insertDC = insertDiaChi($_SESSION['iduser'],$diachinha,$phuong,$quan,$tinh);
-                            $errDC = "Thêm địa chỉ thành công";
-                            $diachi = getDiaChi($_SESSION['iduser']);
-                            }
-                            else
-                            {
-                                $errDC = "Vượt quá số lượng địa chỉ cho phép";
-                            }
-                        }                   
-                        if(isset($_COOKIE['id']))
-                        {
-                            
-                            if($countDiaChi <5)
-                            {
-                            $insertDC = insertDiaChi($_COOKIE['id'],$diachinha,$phuong,$quan,$tinh);
-                            $errDC = "Thêm địa chỉ thành công";
-                            $diachi = getDiaChi($_COOKIE['id']);
-                            }
-                            else
-                            {
-                                $errDC = "Vượt quá số lượng địa chỉ cho phép";
-                            }
-                        }         
-                    }
-                }
-                if(isset($_POST['btnXoaDC'])) {         
-                    if(isset($_POST['diachifull']))
-                    {
-                        $selectedDC = $_POST['diachifull'];
-                        if(isset($_SESSION['iduser']))
-                        {
-                            if($selectedDC != '') {
-                                DeleteDiaChi($_SESSION['iduser'], $selectedDC);
-                                $diachi = getDiaChi($_SESSION['iduser']); // Thay $id bằng ID của người dùng
-                            }
-                        }              
-                        if(isset($_COOKIE['id']))
-                        {
-                            if($selectedDC != '') {
-                            
-                                // Thực hiện xóa địa chỉ ở đây với $selectedDC là mã địa chỉ cần xóa
-                                DeleteDiaChi($_COOKIE['id'], $selectedDC); 
-                                $diachi = getDiaChi($_COOKIE['id']);// Thay $id bằng ID của người dùng
-                            }
-                        }
-                    }
-                    else
-                    {
-                        $errDC = "Không tồn tại địa chỉ để xóa";
-                    }
                 }
                 if(isset($_POST['btnThayDoi']))
                 {
            
                     $f_name = $_POST['f_name'];
                     $l_name = $_POST['l_name'];
+                    $diachi = $_POST['diachi'];
                     $sdt = $_POST['sdt'];
                     $email = $_POST['email'];
-                    
-                    if($f_name == "" || $l_name == "" || $sdt == "")
+                    $tinh = $_POST['hidden_tinh'];
+                    $quan = $_POST['hidden_quan'];
+                    $phuong = $_POST['hidden_phuong'];
+                    if($f_name == "" || $l_name == "" || $diachi == "" || $sdt == "")
                     {
                         $err = "Vui lòng nhập đầy đủ thông tin";
                     }
+                    else if($tinh == "" || $quan == "" || $phuong == "")
+                    {
+                        $err = "Vui lòng chọn địa chỉ";
+                    }
                     else
-                    {         
+                    {
+                        $diachifull = $diachi . ', ' . $phuong . ', ' . $quan . ', ' . $tinh;
                         if(isset($_SESSION['iduser']))
                         {
-                            $updateUser = UpdateUser($_SESSION['iduser'],$f_name,$l_name,$sdt,$email);
+                            $updateUser = UpdateUser($_SESSION['iduser'],$f_name,$l_name,$diachifull,$sdt,$email);
                             $err = "Thay đổi thành công";
-                            $infor = getInfor($_SESSION['iduser']);
                         }                   
                         if(isset($_COOKIE['id']))
                         {
-                            $updateUser = UpdateUser($_COOKIE['id'],$f_name,$l_name,$sdt,$email);
+                            $updateUser = UpdateUser($_COOKIE['id'],$f_name,$l_name,$diachifull,$sdt,$email);
                             $err = "Thay đổi thành công";
-                            $infor = getInfor($_COOKIE['id']);
                         }         
                     }
                 }
@@ -529,7 +463,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
         case 'DatHangThanhCong':
             if(isset($_SESSION['role']) || isset($_COOKIE['id']))
             {
-                include "view/DatHangThanhCong.php";
+                include "DatHangThanhCong.php";
             }
             else
             {

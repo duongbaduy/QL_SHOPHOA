@@ -53,7 +53,7 @@ $tong = 0;
                                             </font>
                                         </span>
                                     </label>
-                                    <input placeholder="" name="hoten" value="<?php echo  $infor[0]['l_name'], ' ', $infor[0]['f_name'] ?>" type="text" readonly>
+                                    <input placeholder="" name="hoten" value="<?php echo  $infor[0]['l_name'] ,' ', $infor[0]['f_name'] ?>" type="text" readonly>
                                     <p class="text-danger"><?php echo $errHT ?></p>
                                 </div>
                             </div>
@@ -69,25 +69,9 @@ $tong = 0;
                                             </font>
                                         </span>
                                     </label>
-                                    <select class="form-select" name="diachifull" id="">
-                                        <?php
-                                        if (isset($diachi)) {
-                                            foreach ($diachi as $dc) {
-                                                if (!empty($dc['Duong']) && !empty($dc['Phuong']) && !empty($dc['Huyen']) && !empty($dc['Tinh'])) {
-                                        ?>
-                                            <option value="<?php echo $dc['MaDC']; ?>">
-                                                <?php echo $dc['Duong'] . ', ' . $dc['Phuong'] . ', ' . $dc['Huyen'] . ', ' . $dc['Tinh']; ?>
-                                            </option>
-                                        <?php
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                    <p class="text-danger "><?php echo $errDC ?></p>
-                                    <p>Nếu quý khánh muốn thêm địa chỉ mới vui lòng click <a href="index.php?page=taikhoancuatoi" class="text-primary "> vào đây</a></p>
+                                    <input placeholder="Địa chỉ đường phố" name="diachi" type="text" value="<?php echo $infor[0]['diachi'] ?>">
+                                    <p class="text-danger"><?php echo $errDC ?></p>
                                 </div>
-                                
                             </div>
 
                             <div class="col-md-6 col-custom">
@@ -119,7 +103,7 @@ $tong = 0;
                                     <input type="text" name="sdt" readonly value="<?php echo $infor[0]['sdt'] ?>">
                                     <p class="text-danger"><?php echo $errSDT ?></p>
                                 </div>
-                            </div>
+                            </div>                      
                         </div>
                         <div class="different-address">
                             <div class="ship-different-title">
@@ -305,19 +289,19 @@ $tong = 0;
                                                         <font style="vertical-align: inherit;">
                                                             <font style="vertical-align: inherit;">
                                                                 × <?php echo $item['3'] ?>
-
+                                                                
                                                             </font>
                                                         </font>
                                                     </strong>
                                                 </td>
                                                 <td class="cart-product-total text-center"><span class="amount">
                                                         <font style="vertical-align: inherit;">
-                                                            <font style="vertical-align: inherit;">
-                                                                <?php
+                                                            <font style="vertical-align: inherit;">                                           
+                                                            <?php 
                                                                 $formattedValue = number_format($tt, 0, ',', '.') . ' VNĐ';
                                                                 echo $formattedValue;
-                                                                ?>
-                                                            </font>
+                                                            ?>
+                                                        </font>
                                                         </font>
                                                     </span></td>
                                             </tr>
@@ -334,19 +318,19 @@ $tong = 0;
                                         <td class="text-center"><strong><span class="amount">
                                                     <font style="vertical-align: inherit;">
                                                         <font style="vertical-align: inherit;">
-                                                            <?php
+                                                        <?php 
                                                             $formattedValue = number_format($tong, 0, ',', '.') . ' VNĐ';
                                                             echo $formattedValue;
-                                                            ?></font>
+                                                        ?></font>
                                                     </font>
                                                 </span></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
-
+                            
                         </div>
                         <div class="payment-method">
-                            <div class="payment-accordion">
+                            <div class="payment-accordion">                       
                                 <div id="accordion">
                                     <div class="card">
                                         <div class="card-header" id="#payment-1">
@@ -391,7 +375,7 @@ $tong = 0;
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                         
                                 </div>
                                 <div class="order-button-payment">
                                     <p>Quý khách muốn thay đổi thông tin vui lòng nhấn <a href="index.php?page=taikhoancuatoi" class="text-primary ">vào đây</a></p>
@@ -399,7 +383,7 @@ $tong = 0;
                                         <font style="vertical-align: inherit;">
                                             <font style="vertical-align: inherit;">Đặt hàng</font>
                                         </font>
-                                    </button>
+                                    </button>                               
                                 </div>
                             </div>
                         </div>

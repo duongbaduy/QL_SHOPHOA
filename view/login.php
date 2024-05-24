@@ -53,7 +53,7 @@ require_once('controller/core/controller.Class.php');
                                             <label class="custom-control-label" for="rememberMe"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nhớ tôi</font></font></label>
                                         </div>
                                     </div>
-                                    <a href="#" class="forget-pwd mb-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quên mật khẩu?</font></font></a>
+                                    <a href="index.php?page=quenmatkhau" class="forget-pwd mb-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quên mật khẩu?</font></font></a>
                                 </div>
                             </div>
                             <div class="single-input-item mb-3">

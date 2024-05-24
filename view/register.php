@@ -1,64 +1,59 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-    <script src="https://esgoo.net/scripts/jquery.js"></script>
-<script>
-    $(document).ready(function() {
-    //Lấy tỉnh thành
-    $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
-        if (data_tinh.error == 0) {
-            $.each(data_tinh.data, function(key_tinh, val_tinh) {
-                $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            //Lấy tỉnh thành
+            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
+                if (data_tinh.error === 0) {
+                    $.each(data_tinh.data, function(key_tinh, val_tinh) {
+                        $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                    });
+                    $("#tinh").change(function(e) {
+                        var idtinh = $(this).val();
+                        var tenTinh = $("#tinh option:selected").text(); // Lấy tên tỉnh được chọn
+                        $("#hidden_tinh").val(tenTinh); // Đặt giá trị của trường ẩn để gửi tên tỉnh về server
+                        
+                        //Lấy quận huyện
+                        $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
+                            if (data_quan.error === 0) {
+                                $("#quan").html('<option value="0">Quận Huyện</option>');
+                                $("#phuong").html('<option value="0">Phường Xã</option>');
+                                $.each(data_quan.data, function(key_quan, val_quan) {
+                                    $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                                });
+                            }
+                        });
+                    });
+                }
             });
-            $("#tinh").change(function(e) {
-                var idtinh = $(this).val();
-                var tenTinh = $("#tinh option:selected").text(); // Lấy tên tỉnh được chọn
-                $("#hidden_tinh").val(tenTinh); // Đặt giá trị của trường ẩn để gửi tên tỉnh về server
+            
+            //Lấy phường xã khi chọn quận huyện
+            $("#quan").change(function(e) {
+                var idquan = $(this).val();
+                var tenQuan = $("#quan option:selected").text(); // Lấy tên quận huyện được chọn
+                $("#hidden_quan").val(tenQuan); // Đặt giá trị của trường ẩn để gửi tên quận huyện về server
                 
-                //Lấy quận huyện
-                $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
-                    if (data_quan.error == 0) {
-                        $("#quan").html('<option value="0">Quận Huyện</option>');
+                $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                    if (data_phuong.error === 0) {
                         $("#phuong").html('<option value="0">Phường Xã</option>');
-                        $.each(data_quan.data, function(key_quan, val_quan) {
-                            $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                        $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                            $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
                         });
                     }
                 });
             });
-        }
-    });
-    
-    //Lấy phường xã khi chọn quận huyện
-    $("#quan").change(function(e) {
-        var idquan = $(this).val();
-        var tenQuan = $("#quan option:selected").text(); // Lấy tên quận huyện được chọn
-        $("#hidden_quan").val(tenQuan); // Đặt giá trị của trường ẩn để gửi tên quận huyện về server
-        
-        $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
-            if (data_phuong.error == 0) {
-                $("#phuong").html('<option value="0">Phường Xã</option>');
-                $.each(data_phuong.data, function(key_phuong, val_phuong) {
-                    $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
-                });
-                }
-        });
-    });
-    // Lấy phường xã khi chọn phường xã
-    $("#phuong").change(function(e) {
-        var tenPhuong = $("#phuong option:selected").text(); // Lấy tên phường xã được chọn
-        $("#hidden_phuong").val(tenPhuong); // Đặt giá trị của trường ẩn để gửi tên phường xã về server
-    });
-}); 
- </script>
-
-</body>
-    <!-- Add your CSS styles here -->
+            // Lấy phường xã khi chọn phường xã
+            $("#phuong").change(function(e) {
+                var tenPhuong = $("#phuong option:selected").text(); // Lấy tên phường xã được chọn
+                $("#hidden_phuong").val(tenPhuong); // Đặt giá trị của trường ẩn để gửi tên phường xã về server
+            });
+        }); 
+    </script>
 </head>
 <body>
     <!-- Breadcrumb Area Start Here -->
@@ -107,16 +102,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                            <div class="single-input-item mb-2">
-                                                <input type="text" id="sdt" placeholder="Số điện thoại" name="sdt" required>
-                                                <div class="text-danger" style="font-size:smaller" id="sdtError"><?php echo isset($errors['sdt']) ? $errors['sdt'] : ''; ?></div>
-                                            </div>
+                                        <div class="single-input-item mb-2">
+                                            <input type="text" id="sdt" placeholder="Số điện thoại" name="sdt" required>
+                                            <div class="text-danger" style="font-size:smaller" id="sdtError"><?php echo isset($errors['sdt']) ? $errors['sdt'] : ''; ?></div>
+                                        </div>
                                     </div>
                                     <div class="col-sm">
-                                            <div class="single-input-item mb-2">
-                                                <input type="email" id="email" placeholder="Email" name="email" required>
-                                                <div class="text-danger" style="font-size:smaller" id="emailError"><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></div>
-                                            </div>
+                                        <div class="single-input-item mb-2">
+                                            <input type="email" id="email" placeholder="Email" name="email" required>
+                                            <div class="text-danger" style="font-size:smaller" id="emailError"><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -126,9 +121,7 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="single-input-item mb-3">
-                                        <input type="hidden" id="hidden_tinh" name="hidden_tinh" value="">
-
-   
+                                            <input type="hidden" id="hidden_tinh" name="hidden_tinh" value="">
                                             <select id="tinh" name="tinh" style="font-size: 14px; border-radius: 0%; border:0;" class="form-control">
                                                 <option value="">Chọn tỉnh</option>
                                                 <!-- populate options with data from your database or API -->
@@ -137,7 +130,7 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="single-input-item mb-2">
-                                        <input type="hidden" id="hidden_quan" name="hidden_quan" value="">
+                                            <input type="hidden" id="hidden_quan" name="hidden_quan" value="">
                                             <select id="quan" name="quan" style="font-size: 14px; border-radius: 0%; border:0;" class="form-control">
                                                 <option value="">Chọn quận/huyện</option>
                                             </select>
@@ -145,7 +138,7 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="single-input-item mb-2">
-                                        <input type="hidden" id="hidden_phuong" name="hidden_phuong" value="">
+                                            <input type="hidden" id="hidden_phuong" name="hidden_phuong" value="">
                                             <select id="phuong" name="phuong" style="font-size: 14px; border-radius: 0%; border:0;" class="form-control">
                                                 <option value="">Chọn xã/phường</option>
                                             </select>
@@ -157,13 +150,13 @@
                                         <input type="text" id="userName" placeholder="Tên đăng nhập" name="userName" required>
                                         <div class="text-danger" style="font-size:smaller" id="userNameError"><?php echo isset($errors['userName']) ? $errors['userName'] : ''; ?></div>
                                     </div>
-                                    <div>
+                                    <div class="col-sm-6">
                                         <div class="single-input-item mb-2">
                                             <input type="password" id="password" placeholder="Nhập mật khẩu" name="password" required>
                                             <div class="text-danger" style="font-size:smaller" id="passwordError"><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="col-sm-6">
                                         <div class="single-input-item mb-1">
                                             <input type="password" id="confirm_pwd" placeholder="Xác nhận mật khẩu" name="confirm_pwd" required>
                                             <div class="text-danger" style="font-size:smaller" id="confirm_pwdError"><?php echo isset($errors['confirm_pwd']) ? $errors['confirm_pwd'] : ''; ?></div>
@@ -184,17 +177,3 @@
     <!-- Register Area End Here -->
 </body>
 </html>
-
-                               
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                               
-                                
-                                
