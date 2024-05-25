@@ -385,7 +385,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                                 ':sdt' => $sdt,
                                 ':email' => $email,
                                 ':userName' => $userName,
-                                ':password' => $password_hashed
+                                ':password' => $password
                             ]);
                 
                             // Lấy user ID vừa insert

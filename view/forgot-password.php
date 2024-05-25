@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
                 $mail->Subject = 'no reply';
-                $mail->Body    = 'Vui lòng nhấp vào đường dẫn sau để đổi mật khẩu <b><a href="http://localhost/dashboard/QL_SHOPHOA/index.php?page=doimatkhau&reset='.$code.' ">http://localhost/dashboard/QL_SHOPHOA/index.php?page=doimatkhau&reset='.$code.' </a></b>';
+                $mail->Body    = 'Vui lòng nhấp vào đường dẫn sau để đổi mật khẩu <b><a href="http://localhost/QL_SHOPHOA/index.php?page=doimatkhau&reset='.$code.' ">http://localhost/QL_SHOPHOA/index.php?page=doimatkhau&reset='.$code.' </a></b>';
 
                 $mail->send();
                 echo 'Message has been sent';
