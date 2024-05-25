@@ -343,55 +343,60 @@ $tong = 0;
                                     </tr>
                                 </tfoot>
                             </table>
-
                         </div>
+                       
                         <div class="payment-method">
                             <div class="payment-accordion">
                                 <div id="accordion">
                                     <div class="card">
-                                        <div class="card-header" id="#payment-1">
-                                            <h5 class="panel-title mb-3">
-                                                <a href="#" class="" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">
-                                                            Thanh toán khi nhận hàng
-                                                        </font>
-                                                    </font>
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="panel-title mb-1">
+                                                <a href="#" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <p>
+                                                    <input style="vertical-align: inherit;" type="checkbox" id="payment1" name="payment1" value="payment1">
+                                                    <label style="vertical-align: inherit;" for="payment1">
+                                                        <font class="fw-bold">Thanh toán khi nhận hàng</font>
+                                                    </label>
+                                                </p>
                                                 </a>
                                             </h5>
-                                        </div>
-                                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                            <div class="card-body mb-2 mt-2">
-                                                <p>
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">Thực hiện thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng ID đơn hàng của bạn làm tài liệu tham khảo thanh toán. Đơn đặt hàng của bạn sẽ không được chuyển cho đến khi tiền đã được xóa trong tài khoản của chúng tôi.</font>
-                                                    </font>
-                                                </p>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="card">
-                                        <div class="card-header" id="#payment-2">
-                                            <h5 class="panel-title mb-3">
-                                                <a href="#" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">
-                                                            Thanh toán trực tuyến
-                                                        </font>
-                                                    </font>
-                                                </a>
+                                        <div class="card-header" id="headingTwo">
+                                            <h5 class="panel-title mb-1 mt-3">
+                                                <form action="" method="post" enctype="application/x-www-form-urlencoded">
+                                                    <a href="#" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                        <p>
+                                                            <input style="vertical-align: inherit;" type="checkbox" id="payment2" name="payment2">
+                                                            <label style="vertical-align: inherit;" for="payment2">
+                                                                <font class="fw-bold">Thanh toán trực tuyến qua MOMO</font>
+                                                            </label>
+                                                        </p>
+                                                    </a>
                                             </h5>
                                         </div>
-                                        <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                            <div class="card-body mb-2 mt-2">
-                                                <p>
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">Thực hiện thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng ID đơn hàng của bạn làm tài liệu tham khảo thanh toán. Đơn đặt hàng của bạn sẽ không được chuyển cho đến khi tiền đã được xóa trong tài khoản của chúng tôi.</font>
-                                                    </font>
-                                                </p>
-                                            </div>
+                                        <div class="single-input-item mb-2" id="collapseTwo" data-parent="#accordion">
+                                            <input type="submit" name="btnmomo" id="btnmomo" value="Mã QRcode">
                                         </div>
+                                        </form>
                                     </div>
+
+                                    <script>
+                            // Lắng nghe sự kiện khi checkbox được thay đổi
+                                    document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+                                        checkbox.addEventListener('change', function() {
+                                            // Nếu checkbox payment1 được chọn, hủy chọn checkbox payment2
+                                            if (this.id === 'payment1' && this.checked) {
+                                                document.getElementById('payment2').checked = false;
+                                            }
+                                            // Nếu checkbox payment2 được chọn, hủy chọn checkbox payment1
+                                            if (this.id === 'payment2' && this.checked) {
+                                                document.getElementById('payment1').checked = false;
+                                            }
+                                        });
+                                    });
+                                </script>
                                 </div>
                                 <div class="order-button-payment">
                                     <p>Quý khách muốn thay đổi thông tin vui lòng nhấn <a href="index.php?page=taikhoancuatoi" class="text-primary ">vào đây</a></p>
@@ -399,6 +404,7 @@ $tong = 0;
                                         <font style="vertical-align: inherit;">
                                             <font style="vertical-align: inherit;">Đặt hàng</font>
                                         </font>
+                                        <div class="text-danger" style="font-size:smaller" id="btndathang"><?php echo isset($errors['btndathang']) ? $errors['btndathang'] : ''; ?></div>
                                     </button>
                                 </div>
                             </div>
