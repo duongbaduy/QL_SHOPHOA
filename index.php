@@ -374,6 +374,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                         try {
                             // Bắt đầu transaction
                             $conn->beginTransaction();
+                            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 
                             // Thêm user vào bảng users
                             $sql = "INSERT INTO users (f_name, l_name, sdt, email, userName, password, session, role) 
@@ -385,7 +386,8 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                                 ':sdt' => $sdt,
                                 ':email' => $email,
                                 ':userName' => $userName,
-                                ':password' => $password
+                                ':password' => $hashed_password
+                                
                             ]);
                 
                             // Lấy user ID vừa insert
