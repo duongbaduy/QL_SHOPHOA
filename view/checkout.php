@@ -31,7 +31,7 @@ $tong = 0;
 
 <div class="checkout-area mt-no-text">
     <div class="container custom-container">
-        <form action="index.php?page=vechungtoi" method="post">
+        <form id="payment-form" action="" method="post">
             <div class="row">
                 <div class="col-lg-6 col-12 col-custom">
 
@@ -395,12 +395,12 @@ $tong = 0;
                                 </div>
                                 <div class="order-button-payment">
                                     <p>Quý khách muốn thay đổi thông tin vui lòng nhấn <a href="index.php?page=taikhoancuatoi" class="text-primary ">vào đây</a></p>
-                                    <button type="submit" name="btndathang" class="btn flosun-button secondary-btn black-color rounded-0 w-100">
+                                    <button id="cash-payment-btn" type="submit" name="btndathang" class="btn flosun-button secondary-btn black-color rounded-0 w-100">
                                         <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Thanh toán khi nhận hàng</font>
+                                            <font style="vertical-align: inherit;">Thanh toán tiền mặt</font>
                                         </font>
                                     </button>
-                                    <button type="submit" name="btnThanhToanThe" class="mt-3 btn flosun-button secondary-btn black-color rounded-0 w-100">
+                                    <button id="momo-payment-btn" type="submit" name="btn" class="mt-2 btn flosun-button secondary-btn black-color rounded-0 w-100">
                                         <font style="vertical-align: inherit;">
                                             <font style="vertical-align: inherit;">Thanh toán momo</font>
                                         </font>
@@ -414,3 +414,15 @@ $tong = 0;
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('cash-payment-btn').addEventListener('click', function() {
+        document.getElementById('payment-form').action = '';
+        document.getElementById('payment-form').submit();
+    });
+
+    document.getElementById('momo-payment-btn').addEventListener('click', function() {
+        document.getElementById('payment-form').action = 'facebook.com';
+        document.getElementById('payment-form').submit();
+    });
+</script>
