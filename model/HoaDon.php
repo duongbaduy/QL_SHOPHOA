@@ -1,8 +1,15 @@
 <?php 
+<<<<<<< HEAD
     function InsertHoaDon($makh,$diachi,$ngaydat,$ghichu,$tongtien,$hinhthucthanhtoan)
     {
         $conn = ketnoi();
         $sql = "INSERT INTO hoadon (MaKH, DiaChiGiaoHang, NgayDat, GhiChu, TongTien,HinhThucThanhToan) values('$makh','$diachi','$ngaydat','$ghichu','$tongtien','$hinhthucthanhtoan')";
+=======
+    function InsertHoaDon($makh,$ngaydat,$ghichu,$tongtien)
+    {
+        $conn = ketnoi();
+        $sql = "INSERT INTO hoadon (MaKH, NgayDat, GhiChu, TongTien) values('$makh','$ngaydat','$ghichu','$tongtien')";
+>>>>>>> b5c0927902fa29b8435dc9da00f95ed98be0efd0
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $lastInsertedId = $conn->lastInsertId();

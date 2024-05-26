@@ -24,7 +24,6 @@ function getall_HD($key, $page, $soluongsp) {
     $conn = ketnoi();
     $sql = "SELECT * FROM hoadon WHERE 1 ";
     if ($key != "") {
-        $sql .= "AND DiaChiGiaoHang LIKE '%" . $key . "%' ";
         $sql .= "OR NgayDat LIKE '%" . $key . "%' ";
         $sql .= "OR TinhTrang LIKE '%" . $key . "%' ";
     }
