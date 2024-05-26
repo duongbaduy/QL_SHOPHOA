@@ -55,4 +55,54 @@ function in_HD($mahd)
     $in = $stmt->fetchAll();
     return $in;
 }
+function getall_khohang(){
+    $conn = ketnoi();
+    $stmt = $conn->prepare("select ID, TenNCC, TenSP, SoLuongNhap, NgayNhap from khohang, sanpham, nhacungcap where khohang.MaNCC = nhacungcap.MaNCC and khohang.MaSP = sanpham.MaSP");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kho = $stmt->fetchAll();
+    return $kho;
+}
+function getone_khohang($id){
+    $conn = ketnoi();
+    $stmt = $conn->prepare("SELECT * FROM khohang where ID=".$id);
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $khohang = $stmt->fetchAll();
+    return $khohang;
+}
+function edit_khohang($id,$mancc,$masp,$soluongnhap,$ngaynhap)
+{
+    $conn = ketnoi();
+    $sql = "UPDATE khohang set MaNCC='".$mancc."', MaSP='".$masp."', SoLuongNhap='".$soluongnhap."', NgayNhap='".$ngaynhap."' where ID=".$id;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+}
+function getall_NCC(){
+    $conn = ketnoi();
+    $stmt = $conn->prepare("SELECT * FROM nhacungcap");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $loai = $stmt->fetchAll();
+    return $loai;
+}
+function getall_SP(){
+    $conn = ketnoi();
+    $stmt = $conn->prepare("SELECT * FROM sanpham");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $loai = $stmt->fetchAll();
+    return $loai;
+}
+function insert_khohang($mancc,$masp,$soluongnhap,$ngaynhap) {
+    $conn = ketnoi();
+    $sql = "INSERT INTO khohang (MaNCC, MaSP, SoLuongNhap, NgayNhap) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$mancc,$masp,$soluongnhap,$ngaynhap]);
+}
+function del_khohang($id){
+    $conn = ketnoi();
+    $sql ="DELETE FROM khohang where ID=".$id;
+    $conn->exec($sql);
+}
 ?>

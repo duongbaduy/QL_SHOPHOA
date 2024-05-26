@@ -560,7 +560,72 @@ if(isset($_GET['act']))
 
                             $pdf->Output();
                         break;
+                        case 'xem_HD':
+                            if(isset($_GET['id']))
+                                {
+                                    $id=$_GET['id'];
+                                    $hd=in_HD($id);
+                                include "view/xem_HD.php";
+                                }
+                        break;
+                        case 'khohang':
+                          
+                                $khohang=getall_khohang();
+                                include "view/khohang.php";
+                                break;    
+                         case 'edit_khohang':
+                            $mancc = getall_NCC();
+                            $masp = getall_SP();
+                            if(isset($_GET['id']))
+                                {
+                                    $id=$_GET['id'];
+                                    $kq1=getone_khohang($id);
+                                include "view/edit_khohang.php";
+                                }
+                            if(isset($_POST['edit_khohang']))
+                                {
+                                    $id=$_POST['ID'];
+                                    $mancc=$_POST['MaNCC'];
+                                    $masp=$_POST['MaSP'];
+                                    $soluongnhap = $_POST['SoLuongNhap'];
+                                    $ngaynhap=$_POST['NgayNhap'];
+                                    edit_khohang($id,$mancc,$masp,$soluongnhap,$ngaynhap);
+                                    $khohang=getall_khohang();
+                                    include "view/khohang.php";
+                                }
+                            break;
+                            case 'insert_khohang':
+                                  $sp=getall_SP();
+                                  $ncc = getall_NCC();
+                            if(!isset($_POST['insert_khohang']))
+                            {
+                                include "view/insert_khohang.php";
                         
+                            }
+                            elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insert_khohang'])) {
+                                // Lấy dữ liệu từ form
+                                $mancc = $_POST['MaNCC'];
+                                $masp = $_POST['MaSP'];
+                                $soluongnhap = $_POST['SoLuongNhap'];
+                                $ngaynhap = $_POST['NgayNhap'];
+                                
+                                // Thêm dữ liệu vào cơ sở dữ liệu
+                                insert_khohang($mancc, $masp, $soluongnhap, $ngaynhap);
+                                
+                                // Chuyển hướng người dùng đến một trang khác sau khi thêm dữ liệu thành công
+                                header("Location: index.php?act=khohang");
+                                exit(); // Dừng script sau khi chuyển hướng
+                            }
+                            break;
+                        case 'del_khohang':
+                            if(isset($_GET['act']) && $_GET['act'] == 'del_khohang' && isset($_GET['id'])) {
+                                $id = $_GET['id'];
+                                // Thực hiện hàm xóa loại hoa
+                                del_khohang($id);
+                            }
+                            $khohang=getall_khohang();
+                            include "view/khohang.php";
+                            break;
                         default:
                             include "view/home.php";
     }

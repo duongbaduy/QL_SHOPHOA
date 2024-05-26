@@ -9,12 +9,12 @@
 <table class="table table-light table-striped" style="margin-top: 10px;">
            <th>Mã HD</th>
            <th>Mã KH</th>
-           <th>Địa Chỉ Giao Hàng</th>
            <th>Ngày Đặt</th>
            <th>Ghi Chú</th>
            <th>Tổng Tiền</th>
            <th>Thanh Toán</th>
            <th>Tình Trạng</th>
+           <th></th>
            <th></th>
            <th></th>
            <th></th>
@@ -29,12 +29,13 @@
         <tr>
             <td><?php echo $HD['MaHD'] ?></td>
             <td><?php echo $HD['MaKH'] ?></td>
-            <td><?php echo $HD['DiaChiGiaoHang'] ?></td>
             <td><?php echo $HD['NgayDat'] ?></td>
             <td><?php echo $HD['GhiChu'] ?></td>
             <td><?php echo $HD['TongTien'] ?></td>
             <td><?php echo $HD['HinhThucThanhToan'] ?></td>
             <td><?php echo $HD['TinhTrang'] ?></td>
+            <td><a href="index.php?act=xem_HD&id=<?php echo $HD['MaHD'] ?>">Xem chi tiết</a> 
+            </td>
             <td><a href="index.php?act=edit_HD&id=<?php echo $HD['MaHD'] ?>" class="btn btn-primary">Sửa</a> 
             </td>
             <td> <a href="index.php?act=del_HD&id=<?php echo $HD['MaHD'] ?>" class="btn btn-danger">Xóa</a></td>
