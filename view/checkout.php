@@ -31,7 +31,7 @@ $tong = 0;
 
 <div class="checkout-area mt-no-text">
     <div class="container custom-container">
-        <form action="index.php?page=dathang" method="post">
+        <form action="index.php?page=sanpham" method="post">
             <div class="row">
                 <div class="col-lg-6 col-12 col-custom">
 
@@ -397,7 +397,12 @@ $tong = 0;
                                     <p>Quý khách muốn thay đổi thông tin vui lòng nhấn <a href="index.php?page=taikhoancuatoi" class="text-primary ">vào đây</a></p>
                                     <button type="submit" name="btndathang" class="btn flosun-button secondary-btn black-color rounded-0 w-100">
                                         <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Đặt hàng</font>
+                                            <font style="vertical-align: inherit;">Thanh toán khi nhận hàng</font>
+                                        </font>
+                                    </button>
+                                    <button type="submit" name="btnThanhToanThe" class="mt-3 btn flosun-button secondary-btn black-color rounded-0 w-100">
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">Thanh toán momo</font>
                                         </font>
                                     </button>
                                 </div>
