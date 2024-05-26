@@ -97,7 +97,7 @@
                         </div>
                         <p class="desc-content mb-5">
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Tôi phải giải thích cho bạn làm thế nào tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một bản tường trình đầy đủ về hệ thống, đồng thời giải thích những lời dạy thực tế của nhà thám hiểm vĩ đại về sự thật, bậc thầy xây dựng nên hạnh phúc của con người. .</font>
+                                <font style="vertical-align: inherit;"><?php echo $sanpham[0]['MoTa'] ?></font>
                             </font>
                         </p>
                         <div class="quantity-with_btn mb-5">                      

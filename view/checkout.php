@@ -31,7 +31,7 @@ $tong = 0;
 
 <div class="checkout-area mt-no-text">
     <div class="container custom-container">
-        <form id="payment-form" action="" method="post">
+    <form id="payment-form" class="" method="post" action="">
             <div class="row">
                 <div class="col-lg-6 col-12 col-custom">
 
@@ -400,7 +400,7 @@ $tong = 0;
                                             <font style="vertical-align: inherit;">Thanh toán tiền mặt</font>
                                         </font>
                                     </button>
-                                    <button id="momo-payment-btn" type="submit" name="btn" class="mt-2 btn flosun-button secondary-btn black-color rounded-0 w-100">
+                                    <button id="momo-payment-btn" type="submit" name="btnMomo" class="mt-2 btn flosun-button secondary-btn black-color rounded-0 w-100">
                                         <font style="vertical-align: inherit;">
                                             <font style="vertical-align: inherit;">Thanh toán momo</font>
                                         </font>
@@ -414,15 +414,17 @@ $tong = 0;
         </form>
     </div>
 </div>
-
 <script>
-    document.getElementById('cash-payment-btn').addEventListener('click', function() {
-        document.getElementById('payment-form').action = '';
-        document.getElementById('payment-form').submit();
+     document.getElementById('cash-payment-btn').addEventListener('click', function(event) {
+        document.getElementById('payment-form').action = ''; // Đặt hành động của form tùy theo yêu cầu
+        document.getElementById('payment-form').submit(); // Gửi form
     });
 
-    document.getElementById('momo-payment-btn').addEventListener('click', function() {
-        document.getElementById('payment-form').action = 'facebook.com';
-        document.getElementById('payment-form').submit();
+    document.getElementById('momo-payment-btn').addEventListener('click', function () {
+        var form = document.getElementById('payment-form');
+        form.setAttribute('action', 'view/xulythanhtoanmomo.php');
+        form.setAttribute('target', '_blank'); // set target attribute
+        form.setAttribute('enctype', 'application/x-www-form-urlencoded'); // set enctype attribute
+        form.submit(); // submit the form
     });
 </script>

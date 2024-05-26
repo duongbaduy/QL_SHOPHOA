@@ -227,6 +227,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                         }
                         // Xóa giỏ hàng sau khi đặt hàng thành công
                     }    
+                    
                 }
                 
                 if(isset($_COOKIE['id']))
