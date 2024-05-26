@@ -257,6 +257,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             include "view/about-us.php";
             break;
         case 'lienhe':
+            $err ='';
             include "view/contact-us.php";
             break;
         case 'login':

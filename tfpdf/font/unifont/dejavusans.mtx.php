@@ -13,7 +13,7 @@ $desc=array (
 );
 $up=-63;
 $ut=44;
-$ttffile='C:\xampp\htdocs\SHOPHOA_NHOM05\tfpdf/font/unifont/dejavusans.ttf';
+$ttffile='C:\xampp\htdocs\QL_SHOPHOA\tfpdf/font/unifont/dejavusans.ttf';
 $originalsize=757076;
 $fontkey='dejavusans';
 ?>
