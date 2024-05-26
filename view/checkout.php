@@ -31,7 +31,7 @@ $tong = 0;
 
 <div class="checkout-area mt-no-text">
     <div class="container custom-container">
-        <form action="index.php?page=sanpham" method="post">
+        <form action="index.php?page=vechungtoi" method="post">
             <div class="row">
                 <div class="col-lg-6 col-12 col-custom">
 
