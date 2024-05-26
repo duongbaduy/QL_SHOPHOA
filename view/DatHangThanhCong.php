@@ -17,7 +17,7 @@
                     $diachi = "địa chỉ khách hàng";
 
                     // Chèn hóa đơn vào cơ sở dữ liệu
-                    $lastID = InsertHoaDon($userId, $diachi, $ngaydat, $ghichu, $amount);
+                    $lastID = InsertHoaDon($userId, $diachi, $ngaydat, $ghichu, $amount,'thanh toán momo');
 
                     if ($lastID) {
                         // Chèn chi tiết hóa đơn
@@ -39,7 +39,7 @@
                     $ghichu = "Ghi chú đơn hàng"; // Bạn có thể thay đổi hoặc lấy từ session nếu cần
 
                     // Chèn hóa đơn vào cơ sở dữ liệu
-                    $lastID = InsertHoaDon($userId, $diachi, $ngaydat, $ghichu, $amount);
+                    $lastID = InsertHoaDon($userId, $diachi, $ngaydat, $ghichu, $amount,'thanh toán momo');
 
                     if ($lastID) {
                         // Chèn chi tiết hóa đơn
@@ -59,8 +59,10 @@
                     echo "Không tìm thấy thông tin người dùng!";
                 }
             }
-          
-            
+            else if (isset($_GET['orderId']) && isset($_GET['resultCode']) && $_GET['resultCode'] != '0') {
+                echo '<h2 class="fw-bold text-center text-uppercase">Thanh toán thất bại</h2>';
+                echo '<p class="text-center h2">Bấm <a class="text-primary h2" href="index.php?page=sanpham">vào đây</a> để tiếp tục mua hàng</p>';
+            }
                    
             
             else {

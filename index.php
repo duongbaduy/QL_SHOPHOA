@@ -189,7 +189,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                                 $selectedDC = $_POST['diachifull'];
                                 $getoneDC = getOneDiaChi($_SESSION['iduser'],$selectedDC);
                                 $diachi = $getoneDC['Duong'] . ", " . $getoneDC['Phuong'] . ", " . $getoneDC['Huyen'] . ", " . $getoneDC['Tinh'];
-                                $lastID = InsertHoaDon($_SESSION['iduser'], $diachi, $ngaydat, $ghichu, $tong);
+                                $lastID = InsertHoaDon($_SESSION['iduser'], $diachi, $ngaydat, $ghichu, $tong,'thanh toán tiền mặt');
                             
                                 foreach ($_SESSION['giohang'] as $item) 
                                 {
@@ -210,7 +210,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
                                 $selectedDC = $_POST['diachifull'];
                                 $getoneDC = getOneDiaChi($_COOKIE['id'],$selectedDC);
                                 $diachi = $getoneDC['Duong'] . ", " . $getoneDC['Phuong'] . ", " . $getoneDC['Huyen'] . ", " . $getoneDC['Tinh'];
-                                $lastID = InsertHoaDon($_COOKIE['id'], $diachi, $ngaydat, $ghichu, $tong);
+                                $lastID = InsertHoaDon($_COOKIE['id'], $diachi, $ngaydat, $ghichu, $tong,'thanh toán tiền mặt');
                                 
                                 foreach ($_SESSION['giohang'] as $item) 
                                 {
