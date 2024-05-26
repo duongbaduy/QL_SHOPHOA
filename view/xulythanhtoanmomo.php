@@ -1,10 +1,6 @@
 <?php
     session_start();
     header('Content-type: text/html; charset=utf-8');
-    if (isset($_POST['btnMomo'])) {
-       
-        // Lưu thông tin vào session để dùng sau khi thanh toán thành công
-       }
         $tong = 0;
         foreach ($_SESSION['giohang'] as $item) {
                     
@@ -21,8 +17,8 @@
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data))
         );
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
         //execute post
         $result = curl_exec($ch);
         //close connection
