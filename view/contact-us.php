@@ -98,7 +98,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-custom">
-                <form method="post" action="contact-us.php" class="contact-form">
+                <form method="post" action="index.php?page=sendmail" class="contact-form">
                     <div class="comment-box mt-5">
                         <h5 class="text-uppercase">
                             <font style="vertical-align: inherit;">

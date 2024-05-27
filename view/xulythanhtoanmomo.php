@@ -17,8 +17,8 @@
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data))
         );
-        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
         //execute post
         $result = curl_exec($ch);
         //close connection

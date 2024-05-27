@@ -256,7 +256,7 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
         case 'vechungtoi':
             include "view/about-us.php";
             break;
-        case 'lienhe':
+        case 'lienhe':          
             $err ='';
             include "view/contact-us.php";
             break;
@@ -567,6 +567,9 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
             {
                 include "view/login.php";
             }
+            break;
+        case 'sendmail':
+            include "view/send-email.php";
             break;
         default:
             break;

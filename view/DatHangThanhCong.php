@@ -13,8 +13,8 @@
                 // Kiểm tra xem thông tin người dùng có trong session không
                 if (isset($_COOKIE['id'])) {
                     $userId = $_COOKIE['id'];
-                    $ghichu = 'thanh toán momo';
-                    $diachi = "địa chỉ khách hàng";
+                    $ghichu = 'Ghi chú đơn hàng';
+                    $diachi = "Địa chỉ lấy từ người dùng";
 
                     // Chèn hóa đơn vào cơ sở dữ liệu
                     $lastID = InsertHoaDon($userId, $diachi, $ngaydat, $ghichu, $amount,'thanh toán momo');
