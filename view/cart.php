@@ -71,7 +71,7 @@
                                         $stock = $product_info[0]['SoLuong'];
                                         ?>
                                         <tr>
-                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="view/assets/images/product/small-size/<?php echo $item[2] ?>" alt="Sản phẩm"></a></td>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="view/assets/images/product/<?php echo $item[2] ?>" alt="Sản phẩm"></a></td>
                                             <td class="pro-title"><a href="#">
                                                     <font style="vertical-align: inherit;">
                                                         <font style="vertical-align: inherit;"><?php echo $item[1] ?></font>

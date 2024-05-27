@@ -114,7 +114,7 @@
                 <div class="col-12 col-custom">
                     <div class="section-title text-center mb-30">
                         <span class="section-title-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Món quà tuyệt vời</font></font></span>
-                        <h3 class="section-title-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sản phẩm nổi bật</font></font></h3>
+                        <h3 class="section-title-3" style="font-family:'Times New Roman', Times, serif">Sản phẩm nổi bật</font></font></h3>
                     </div>
                 </div>
                 <!--Section Title End-->
@@ -128,7 +128,7 @@
                                 <!--Single Product Start-->                            
                                 <div class="single-product position-relative mb-30">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.php?hoa=<?php echo $sp['MaSP']; ?>">
+                                        <a class="d-block" href="index.php?page=chitietsanpham&id=<?php echo $sp['MaSP']; ?>">
                                             <img src="view/assets/images/product/<?php echo $sp["HinhAnh"] ?>" alt="" class="product-image-1 w-100">
                                             <img src="view/assets/images/product/<?php echo $sp["HinhAnh"] ?>" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
@@ -179,263 +179,9 @@
     </div>
     <!--Product Area End-->
     <!-- Product Countdown Area Start Here -->
-    <div class="product-countdown-area mt-text-3">
-        <div class="container custom-area">
-            <div class="row">
-                <!--Section Title Start-->
-                <div class="col-12 col-custom">
-                    <div class="section-title text-center mb-30">
-                        <h3 class="section-title-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Giao dịch trong ngày</font></font></h3>
-                    </div>
-                </div>
-                <!--Section Title End-->
-            </div>
-            <div class="row">
-                <!--Countdown Start-->
-                <div class="col-12 col-custom">
-                    <div class="countdown-area">
-                        <div class="countdown-wrapper d-flex justify-content-center" data-countdown="2022/12/24"><div class="single-countdown"><span class="single-countdown_time"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">00 </font></font></span><span class="single-countdown_text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ngày</font></font></span></div><div class="single-countdown"><span class="single-countdown_time"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">00 </font></font></span><span class="single-countdown_text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">giờ</font></font></span></div><div class="single-countdown"><span class="single-countdown_time"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">00 </font></font></span><span class="single-countdown_text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">phút</font></font></span></div><div class="single-countdown"><span class="single-countdown_time"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">00 </font></font></span><span class="single-countdown_text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">giây</font></font></span></div></div>
-                    </div>
-                </div>
-                <!--Countdown End-->
-            </div>
-            <div class="row product-row">
-                <div class="col-12 col-custom">
-                    <div class="item-carousel-2 swiper-container anime-element-multi product-area swiper-container-initialized swiper-container-horizontal swiper-container-autoheight">
-                        <div class="swiper-wrapper" id="swiper-wrapper-7bb918a5339349b9" aria-live="polite" style="height: 464px; transform: translate3d(0px, 0px, 0px);">
-                            <div class="single-item swiper-slide swiper-slide-active" role="group" aria-label="1/5" style="width: 345px;">
-                                <!--Single Product Start-->
-                                <div class="single-product position-relative mb-30">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.php">
-                                            <img src="view/assets/images/product/1.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="view/assets/images/product/2.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                        <span class="onsale"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Doanh thu!</font></font></span>
-                                        <div class="add-action d-flex flex-column position-absolute">
-                                            <a href="compare.php" title="So sánh">
-                                                <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" aria-label="So sánh" data-bs-original-title="Compare"></i>
-                                            </a>
-                                            <a href="wishlist.php" title="Thêm vào danh sách yêu thích">
-                                                <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="left" aria-label="Danh sách yêu thích" data-bs-original-title="Wishlist"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" title="Xem lướt qua" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                                <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="left" aria-label="Xem lướt qua" data-bs-original-title="Quick View"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Hoa hồng dính</font></font></a></h4>
-                                        </div>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$80,00</font></font></span>
-                                            <span class="old-price"><del><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$90,00</font></font></del></span>
-                                        </div>
-                                        <a href="cart.php" class="btn product-cart"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm vào giỏ hàng</font></font></a>
-                                    </div>
-                                </div>
-                                <!--Single Product End-->
-                            </div>
-                            <div class="single-item swiper-slide swiper-slide-next" role="group" aria-label="2/5" style="width: 345px;">
-                                <!--Single Product Start-->
-                                <div class="single-product position-relative mb-30">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.php">
-                                            <img src="view/assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="view/assets/images/product/6.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                        <div class="add-action d-flex flex-column position-absolute">
-                                            <a href="compare.php" title="So sánh">
-                                                <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" aria-label="So sánh" data-bs-original-title="Compare"></i>
-                                            </a>
-                                            <a href="wishlist.php" title="Thêm vào danh sách yêu thích">
-                                                <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="left" aria-label="Danh sách yêu thích" data-bs-original-title="Wishlist"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" title="Xem lướt qua" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                                <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="left" aria-label="Xem lướt qua" data-bs-original-title="Quick View"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Hoa màu trắng</font></font></a></h4>
-                                        </div>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$80,00</font></font></span>
-                                            <span class="old-price"><del><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$90,00</font></font></del></span>
-                                        </div>
-                                        <a href="cart.php" class="btn product-cart"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm vào giỏ hàng</font></font></a>
-                                    </div>
-                                </div>
-                                <!--Single Product End-->
-                            </div>
-                            <div class="single-item swiper-slide" role="group" aria-label="3/5" style="width: 345px;">
-                                <!--Single Product Start-->
-                                <div class="single-product position-relative mb-30">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.php">
-                                            <img src="view/assets/images/product/7.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="view/assets/images/product/8.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                        <div class="add-action d-flex flex-column position-absolute">
-                                            <a href="compare.php" title="So sánh">
-                                                <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" aria-label="So sánh" data-bs-original-title="Compare"></i>
-                                            </a>
-                                            <a href="wishlist.php" title="Thêm vào danh sách yêu thích">
-                                                <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="left" aria-label="Danh sách yêu thích" data-bs-original-title="Wishlist"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" title="Xem lướt qua" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                                <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="left" aria-label="Xem lướt qua" data-bs-original-title="Quick View"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bông hoa</font></font></a></h4>
-                                        </div>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$80,00</font></font></span>
-                                            <span class="old-price"><del><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$90,00</font></font></del></span>
-                                        </div>
-                                        <a href="cart.php" class="btn product-cart"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm vào giỏ hàng</font></font></a>
-                                    </div>
-                                </div>
-                                <!--Single Product End-->
-                            </div>
-                            <div class="single-item swiper-slide" role="group" aria-label="4/5" style="width: 345px;">
-                                <!--Single Product Start-->
-                                <div class="single-product position-relative mb-30">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.php">
-                                            <img src="view/assets/images/product/3.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="view/assets/images/product/4.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                        <div class="add-action d-flex flex-column position-absolute">
-                                            <a href="compare.php" title="So sánh">
-                                                <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" aria-label="So sánh" data-bs-original-title="Compare"></i>
-                                            </a>
-                                            <a href="wishlist.php" title="Thêm vào danh sách yêu thích">
-                                                <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="left" aria-label="Danh sách yêu thích" data-bs-original-title="Wishlist"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" title="Xem lướt qua" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                                <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="left" aria-label="Xem lướt qua" data-bs-original-title="Quick View"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cây gậy hoa đỏ</font></font></a></h4>
-                                        </div>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$80,00</font></font></span>
-                                            <span class="old-price"><del><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$90,00</font></font></del></span>
-                                        </div>
-                                        <a href="cart.php" class="btn product-cart"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm vào giỏ hàng</font></font></a>
-                                    </div>
-                                </div>
-                                <!--Single Product End-->
-                            </div>
-                            <div class="single-item swiper-slide" role="group" aria-label="5/5" style="width: 345px;">
-                                <!--Single Product Start-->
-                                <div class="single-product position-relative mb-30">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.php">
-                                            <img src="view/assets/images/product/8.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="view/assets/images/product/7.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                        <div class="add-action d-flex flex-column position-absolute">
-                                            <a href="compare.php" title="So sánh">
-                                                <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" aria-label="So sánh" data-bs-original-title="Compare"></i>
-                                            </a>
-                                            <a href="wishlist.php" title="Thêm vào danh sách yêu thích">
-                                                <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="left" aria-label="Danh sách yêu thích" data-bs-original-title="Wishlist"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" title="Xem lướt qua" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                                <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="left" aria-label="Xem lướt qua" data-bs-original-title="Quick View"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bó hoa hồng trắng</font></font></a></h4>
-                                        </div>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$80,00</font></font></span>
-                                            <span class="old-price"><del><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$90,00</font></font></del></span>
-                                        </div>
-                                        <a href="cart.php" class="btn product-cart"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thêm vào giỏ hàng</font></font></a>
-                                    </div>
-                                </div>
-                                <!--Single Product End-->
-                            </div>
-                        </div>
-                        <!-- Slider pagination -->
-                        <div class="swiper-pagination default-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span></div>
-                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Product Countdown Area End Here -->
     <!-- History Area Start Here -->
-    <div class="our-history-area pt-text-3">
-        <div class="container">
-            <div class="row">
-                <!--Section Title Start-->
-                <div class="col-12">
-                    <div class="section-title text-center mb-30">
-                        <span class="section-title-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Một câu chuyện nhỏ về chúng tôi</font></font></span>
-                        <h2 class="section-title-large"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lịch sử của chúng tôi</font></font></h2>
-                    </div>
-                </div>
-                <!--Section Title End-->
-            </div>
-            <div class="row">
-                <div class="col-lg-8 ms-auto me-auto">
-                    <div class="history-area-content pb-0 mb-0 border-0 text-center">
-                        <p><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Captain America: Civil War Christopher Markus và Stephen McFeely coi Hulk là trò chơi trong thời điểm hiện tại.</font></font></strong></p>
-                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nam tự do tạm thời kiêm soluta nobis eleifend tùy chọn congue nihil imperdiet doming id quod mazim placerat facer possim assum. </font><font style="vertical-align: inherit;">Typi non-habent claritatem insitam; </font><font style="vertical-align: inherit;">est usus legentis in iis qui facit eorum claritatem. </font><font style="vertical-align: inherit;">Các cuộc điều tra đã chứng minh các giảng viên hợp pháp với tôi lius quod ii legunt saepius. </font><font style="vertical-align: inherit;">Claritas est etiam quá trình năng động. </font><font style="vertical-align: inherit;">Phasellus eu rhoncus dolor, vitae scelerisque sapien</font></font></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- History Area End Here -->
     <!-- Banner Area Start Here -->
     <div class="banner-area mt-text-3">
@@ -489,7 +235,7 @@
                 <div class="col-12 col-custom">
                     <div class="section-title text-center">
                         <span class="section-title-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Chúng tôi yêu quý khách hàng của mình</font></font></span>
-                        <h3 class="section-title-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Họ đang nói gì</font></font></h3>
+                        <h3 class="section-title-3" style="font-family:'Times New Roman', Times, serif">Họ đang nói gì</font></font></h3>
                     </div>
                 </div>
                 <!--Section Title End-->
@@ -607,7 +353,7 @@
                 <div class="col-12">
                     <div class="section-title text-center mb-30">
                         <span class="section-title-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Từ blog</font></font></span>
-                        <h3 class="section-title-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bài viết mới nhất của chúng tôi</font></font></h3>
+                        <h3 class="section-title-3"style="font-family:'Times New Roman', Times, serif">Bài viết mới nhất của chúng tôi</font></font></h3>
                     </div>
                 </div>
                 <!--Section Title End-->

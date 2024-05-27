@@ -39,10 +39,8 @@
                                 <font style="vertical-align: inherit;">Hoa dành cho</font>
                             </font>
                         </span>
-                        <h3 class="section-title-3 pb-0">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Quà sinh nhật</font>
-                            </font>
+                        <h3 class="section-title-3 pb-0" style="font-family:'Times New Roman', Times, serif">
+                            Quà sinh nhật
                         </h3>
                     </div>
                     <div class="desc-content">
@@ -94,10 +92,8 @@
                                 <font style="vertical-align: inherit;">Hoa dành cho</font>
                             </font>
                         </span>
-                        <h3 class="section-title-3 pb-0">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Ngày cưới</font>
-                            </font>
+                        <h3 class="section-title-3 pb-0" style="font-family:'Times New Roman', Times, serif" >
+                           Ngày Cưới
                         </h3>
                     </div>
                     <div class="desc-content">
@@ -118,53 +114,30 @@
         </div>
     </div>
 </div>
-<!-- About Us Area End Here -->
-<!-- History Area Start Here -->
-<div class="our-history-area gray-bg pt-5 mt-text-3">
-    <div class="our-history-area">
-        <div class="container custom-area">
+<div class="our-history-area pt-text-3">
+        <div class="container">
             <div class="row">
                 <!--Section Title Start-->
-                <div class="col-12 col-custom">
+                <div class="col-12">
                     <div class="section-title text-center mb-30">
-                        <span class="section-title-1">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Một câu chuyện nhỏ về chúng tôi</font>
-                            </font>
-                        </span>
-                        <h2 class="section-title-large">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Lịch sử của chúng tôi</font>
-                            </font>
-                        </h2>
+                        <span class="section-title-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Một câu chuyện nhỏ về chúng tôi</font></font></span>
+                        <h2 class="section-title-large" style="font-family:'Times New Roman', Times, serif">Lịch sử của chúng tôi</font></font></h2>
                     </div>
                 </div>
                 <!--Section Title End-->
             </div>
             <div class="row">
                 <div class="col-lg-8 ms-auto me-auto">
-                    <div class="history-area-content text-center border-0">
-                        <p><strong>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">Captain America: Civil War Christopher Markus và Stephen McFeely coi Hulk là trò chơi trong thời điểm hiện tại.</font>
-                                </font>
-                            </strong></p>
-                        <p>
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Nam tự do tạm thời kiêm soluta nobis eleifend tùy chọn congue nihil imperdiet doming id quod mazim placerat facer possim assum. </font>
-                                <font style="vertical-align: inherit;">Typi non-habent claritatem insitam; </font>
-                                <font style="vertical-align: inherit;">est usus legentis in iis qui facit eorum claritatem. </font>
-                                <font style="vertical-align: inherit;">Các cuộc điều tra đã chứng minh các giảng viên hợp pháp với tôi lius quod ii legunt saepius. </font>
-                                <font style="vertical-align: inherit;">Claritas est etiam quá trình năng động. </font>
-                                <font style="vertical-align: inherit;">Phasellus eu rhoncus dolor, vitae scelerisque sapien</font>
-                            </font>
-                        </p>
+                    <div class="history-area-content pb-0 mb-0 border-0 text-center" style="font-family:'Times New Roman', Times, serif">
+                        <p><strong>Trong một góc phố nhộn nhịp của thành phố, có một tiệm hoa nhỏ nhưng nổi tiếng tên là "Bloom Haven". Tiệm hoa này do chị Hân, một nhà thiết kế hoa tài năng và đầy nhiệt huyết, điều hành. Chị Hân từng làm việc tại các công ty lớn nhưng cuối cùng quyết định theo đuổi ước mơ mở một tiệm hoa của riêng mình.
+
+"Bloom Haven" không chỉ bán hoa mà còn cung cấp dịch vụ thiết kế hoa cho các sự kiện, tiệc cưới và cả các buổi workshop cắm hoa. Tiệm hoa được trang trí theo phong cách hiện đại, với không gian mở, ánh sáng tự nhiên và những góc nhỏ để khách hàng có thể chụp ảnh check-in.</font></font></strong></p>
+                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <!-- Feature History Area End Here -->
 <!-- Team Member Area Start Here -->
 <div class="team-member-wrapper mt-text-3">
